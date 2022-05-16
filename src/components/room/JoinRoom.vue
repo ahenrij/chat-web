@@ -26,7 +26,7 @@
           type="button"
           class="bg-blue-500 hover:bg-blue-600 text-white w-full rounded-md p-3 md:p-4"
         >
-          Join
+          Join now
         </button>
       </div>
       <p class="text-center">or</p>
