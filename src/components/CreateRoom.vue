@@ -30,7 +30,9 @@
         </button>
       </div>
       <p class="text-center">or</p>
-      <p class="text-center"><a href="#">Join a room</a></p>
+      <p class="text-center">
+        <router-link to="/join">Create a room</router-link>
+      </p>
     </div>
   </div>
 </template>
