@@ -1,19 +1,34 @@
 <template>
-  <div class="px-10 py-10">
-    <h2 class="text-3xl mt-20 text-center">Create a new chat room</h2>
-    <div class="flex justify-center mt-10">
-      <input
-        class="!border-slate-400 text-center p-4"
-        placeholder="Room name"
-        type="text"
-        name="name"
-        id="name"
-      />
-      <input
-        class="bg-blue-500 hover:bg-blue-600 text-white ml-7 px-10 rounded-md cursor-pointer"
-        type="button"
-        value="Create"
-      />
+  <div class="grid place-items-center px-10 py-10">
+    <h2 class="text-3xl mt-20 mb-8 text-center">Create a new chat room</h2>
+
+    <div class="space-y-5">
+      <div class="">
+        <input
+          class="form-input !border-slate-400 rounded-md p-3 md:p-4"
+          placeholder="Username"
+          type="text"
+          name="name"
+          id="name"
+        />
+      </div>
+      <div>
+        <input
+          class="form-input !border-slate-400 rounded-md p-3 md:p-4"
+          placeholder="Room name"
+          type="text"
+          name="name"
+          id="name"
+        />
+      </div>
+      <div>
+        <button
+          type="button"
+          class="bg-blue-500 hover:bg-blue-600 text-white w-full rounded-md p-3 md:p-4"
+        >
+          Create
+        </button>
+      </div>
     </div>
   </div>
 </template>
