@@ -3,7 +3,7 @@
     <h2 class="text-3xl mt-20 mb-8 text-center">Create a new chat room</h2>
 
     <div class="space-y-5">
-      <div class="">
+      <div>
         <input
           class="form-input !border-slate-400 rounded-md p-3 md:p-4"
           placeholder="Username"
@@ -29,6 +29,8 @@
           Create
         </button>
       </div>
+      <p class="text-center">or</p>
+      <p class="text-center"><a href="#">Join a room</a></p>
     </div>
   </div>
 </template>

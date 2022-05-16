@@ -6,3 +6,7 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
+a {
+  @apply text-blue-500 hover:text-blue-600;
+}
