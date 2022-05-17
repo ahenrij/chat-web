@@ -11,9 +11,11 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   created() {
-    const me = this.get("me");
+    var me = this.get("me");
+    console.log(me);
+    console.log("uuid" in me);
     if (!("uuid" in me)) {
-      me["uuid"] = uuid(10); // 10 characters identifier.
+      me = { uuid: uuid(10) }; // 10 characters identifier.
     }
     this.setData({ stateProperty: "me", value: me });
   },
