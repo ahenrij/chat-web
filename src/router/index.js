@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import CreateRoomView from "../views/CreateRoomView.vue";
+import JoinRoomView from "../views/JoinRoomView.vue";
 import RoomView from "../views/RoomView.vue";
 
 const routes = [
@@ -9,8 +11,18 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/create",
+    name: "create",
+    component: CreateRoomView,
+  },
+  {
     path: "/join",
     name: "join",
+    component: JoinRoomView,
+  },
+  {
+    path: "/chat",
+    name: "chat",
     component: RoomView,
   },
   {

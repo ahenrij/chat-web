@@ -1,7 +1,6 @@
 <template>
   <div class="grid place-items-center px-10 py-10">
     <h2 class="text-3xl mt-20 mb-8 text-center">Create a new chat room</h2>
-
     <div class="space-y-5">
       <div>
         <input

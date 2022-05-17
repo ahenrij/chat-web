@@ -1,17 +1,13 @@
 <template>
   <div class="home">
-    <CreateRoom />
+    <h2>Welcome to Web Chat</h2>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import CreateRoom from "@/components/room/CreateRoom.vue";
 
 export default {
-  name: "HomeView",
-  components: {
-    CreateRoom,
-  },
+  components: {},
 };
 </script>
