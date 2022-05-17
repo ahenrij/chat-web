@@ -5,7 +5,8 @@ const state = {
   loadingErrorCode: "",
   loadingError: "",
   messages: [],
-  room: null,
+  room: {},
+  me: {},
 };
 
 const getters = {
@@ -54,6 +55,7 @@ const actions = {
   },
 
   setData({ commit }, { stateProperty, value }) {
+    console.log(value);
     commit("mutate", {
       property: stateProperty,
       with: value,
@@ -79,6 +81,7 @@ const mutations = {
   },
 
   mutate(state, payload) {
+    console.log(state);
     state[payload.property] = payload.with;
   },
 };

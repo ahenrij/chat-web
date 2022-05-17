@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   /**
    * Generate a uuid of a given size.
    *

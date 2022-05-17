@@ -5,7 +5,22 @@
   </nav>
   <router-view />
 </template>
+<script>
+import { uuid } from "@/utils/func";
+import { mapActions } from "vuex";
 
+export default {
+  created() {
+    const me = {
+      uuid: uuid(10), // identifiers of 10 chars
+    };
+    this.setData({ stateProperty: "me", value: me });
+  },
+  methods: {
+    ...mapActions("data", ["setData"]),
+  },
+};
+</script>
 <style>
 nav {
   padding: 30px;

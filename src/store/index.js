@@ -6,7 +6,7 @@ const debug = process.env.NODE_ENV !== "production";
 
 export default createStore({
   modules: {
-    dataModule,
+    data: dataModule,
   },
   plugins: [createPersistedState()],
   strict: debug,
