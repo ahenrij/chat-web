@@ -3,8 +3,10 @@ import axios from "axios";
 const ApiService = {
   // Stores the 401 interceptor position so that it can be later ejected when needed
   _401interceptor: null,
+  store: null,
 
-  init(baseURL) {
+  init(baseURL, store) {
+    this.store = store;
     axios.defaults.baseURL = baseURL;
   },
 
@@ -48,7 +50,7 @@ const ApiService = {
   },
 
   mount401Interceptor() {
-    // var self = this
+    var self = this;
 
     this._401interceptor = axios.interceptors.response.use(
       (response) => {
@@ -58,11 +60,14 @@ const ApiService = {
         if (error.request.status == 401) {
           if (error.config.url.includes("/o/token/")) {
             // Refresh token has failed. Logout the user
+
+            console.log("api service store : " + self.store);
+            self.store.dispatch("auth/logout");
             throw error;
           } else {
             // Refresh the access token
             try {
-              // await this.store.dispatch('auth/refreshToken')
+              await this.store.dispatch("auth/refreshToken");
               // Retry the original request
               return this.customRequest({
                 method: error.config.method,
