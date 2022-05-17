@@ -31,7 +31,7 @@
       </div>
       <p class="text-center">or</p>
       <p class="text-center">
-        <router-link to="/">Create a room</router-link>
+        <router-link to="/create">Create a room</router-link>
       </p>
     </div>
   </div>
