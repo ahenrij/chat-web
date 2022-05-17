@@ -7,15 +7,21 @@
 </template>
 <script>
 import { uuid } from "@/utils/func";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   created() {
-    const me = {
-      uuid: uuid(10), // identifiers of 10 chars
-    };
+    const me = this.get("me");
+    if (!("uuid" in me)) {
+      me["uuid"] = uuid(10); // 10 characters identifier.
+    }
     this.setData({ stateProperty: "me", value: me });
   },
+
+  computed: {
+    ...mapGetters("data", ["get"]),
+  },
+
   methods: {
     ...mapActions("data", ["setData"]),
   },
