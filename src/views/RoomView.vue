@@ -9,7 +9,7 @@
 import JoinRoom from "@/components/room/JoinRoom.vue";
 
 export default {
-  name: "JoinRoomView",
+  name: "RoomView",
   components: {
     JoinRoom,
   },
