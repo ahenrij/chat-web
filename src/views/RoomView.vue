@@ -25,12 +25,14 @@ export default {
     return {
       title: "Chat Web",
       me: { uuid: 0, name: "..." },
+      room: { id: "", name: "" },
     };
   },
 
   mounted() {
     this.me = this.get("me");
-    // make join request?
+    this.room = this.get("rooms")[0];
+    // make join request
   },
 
   computed: {
