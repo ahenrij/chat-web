@@ -66,14 +66,18 @@ const actions = {
     });
   },
 
-  addRoom({ commit }, payload) {
-    commit("addRoom", payload);
+  addRoom({ commit }, room) {
+    commit("append", {
+      obj: "rooms",
+      value: room,
+    });
   },
 
   addHistory({ commit }, { roomId, history }) {
-    commit("addHistory", {
-      roomId,
-      history,
+    commit("setProperty", {
+      obj: "histories",
+      property: roomId,
+      value: history,
     });
   },
 };
@@ -99,12 +103,12 @@ const mutations = {
     state[payload.property] = payload.with;
   },
 
-  addHistory(state, payload) {
-    state.histories[payload.roomId] = payload.history;
+  setProperty(state, payload) {
+    state[payload.obj][payload.property] = payload.value;
   },
 
-  addRoom(state, payload) {
-    state.rooms.push(payload);
+  append(state, payload) {
+    state[payload.obj].push(payload.value);
   },
 };
 
