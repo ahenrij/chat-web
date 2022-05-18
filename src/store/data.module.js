@@ -4,8 +4,8 @@ const state = {
   loading: false,
   loadingErrorCode: "",
   loadingError: "",
-  messages: [],
-  room: {},
+  histories: {}, // of roomId: messages[]
+  rooms: [], // of { id, title }
   me: {},
 };
 
@@ -13,6 +13,11 @@ const getters = {
   get: (state) => (property) => {
     return state[property];
   },
+
+  getHistory: (state) => (roomId) => {
+    return state.histories[roomId];
+  },
+
   loading: (state) => {
     return state.loading;
   },
@@ -60,6 +65,17 @@ const actions = {
       with: value,
     });
   },
+
+  addRoom({ commit }, payload) {
+    commit("addRoom", payload);
+  },
+
+  addHistory({ commit }, { roomId, history }) {
+    commit("addHistory", {
+      roomId,
+      history,
+    });
+  },
 };
 
 const mutations = {
@@ -81,6 +97,14 @@ const mutations = {
 
   mutate(state, payload) {
     state[payload.property] = payload.with;
+  },
+
+  addHistory(state, payload) {
+    state.histories[payload.roomId] = payload.history;
+  },
+
+  addRoom(state, payload) {
+    state.rooms.push(payload);
   },
 };
 
