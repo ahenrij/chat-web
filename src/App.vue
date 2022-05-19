@@ -12,12 +12,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   created() {
     var me = this.get("me");
-    console.log(me);
-    console.log("uuid" in me);
     if (!("uuid" in me)) {
       me = { uuid: uuid(10) }; // 10 characters identifier.
     }
-    this.setData({ stateProperty: "me", value: me });
+    this.set({ property: "me", value: me });
   },
 
   computed: {
@@ -25,7 +23,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("data", ["setData"]),
+    ...mapActions("data", ["set"]),
   },
 };
 </script>

@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import MessageBubble from "@components/room/MessageBubble.vue";
+import MessageBubble from "@/components/room/MessageBubble.vue";
 // import { mapGetters } from "vuex";
 
 function scrollBottom() {

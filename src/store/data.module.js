@@ -59,11 +59,15 @@ const actions = {
     }
   },
 
-  setData({ commit }, { stateProperty, value }) {
+  set({ commit }, { property, value }) {
     commit("mutate", {
-      property: stateProperty,
+      property: property,
       with: value,
     });
+  },
+
+  setProperty({ commit }, { obj, property, value }) {
+    commit("setProperty", { obj, property, value });
   },
 
   addRoom({ commit }, room) {
