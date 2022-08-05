@@ -12,5 +12,13 @@ a {
 }
 
 .btn-primary {
-  @apply bg-blue-500 rounded-md text-white hover:bg-blue-600 hover:text-white px-10 py-3 inline-block;
+  @apply bg-blue-500 rounded-md text-white shadow-md hover:shadow-lg hover:text-white px-10 py-3 inline-block;
+}
+
+.btn-white {
+  @apply bg-white rounded-md text-black drop-shadow-md hover:text-black hover:drop-shadow-lg px-10 py-3 inline-block;
+}
+
+.form-input {
+  @apply p-3 focus:border-sky-600 min-w-full;
 }

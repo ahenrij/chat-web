@@ -1,51 +1,98 @@
 <template>
-  <div class="grid place-items-center px-10 py-10">
-    <h2 class="text-2xl mt-20 mb-8 text-center">Create a new chat room</h2>
-    <div class="space-y-5">
-      <div>
-        <input
-          class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
-          placeholder="Username"
-          type="text"
-          name="name"
-          id="name"
-          v-on:input="resetErrors()"
-          v-model="formData.userName.value"
-        />
-        <small v-if="formData.userName.error != ''" class="text-red-500">{{
-          formData.userName.error
-        }}</small>
+  <div class="container mx-auto">
+    <div class="grid md:grid-cols-4 lg:grid-cols-6">
+      <div
+        class="md:col-start-2 md:col-span-2 lg:col-start-3 lg:col-span-2 md:mx-0 mx-10"
+      >
+        <h2 class="text-2xl mt-20 mb-8 text-center">Create a new chat room</h2>
+        <div class="space-y-5">
+          <div>
+            <input
+              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              placeholder="Name"
+              type="text"
+              name="name"
+              id="name"
+              v-on:input="resetErrors()"
+              v-model="formData.name.value"
+            />
+            <small v-if="formData.name.error != ''" class="text-red-500">{{
+              formData.name.error
+            }}</small>
+          </div>
+          <div>
+            <textarea
+              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              placeholder="Description"
+              type="text"
+              name="description"
+              id="description"
+              v-on:input="resetErrors()"
+              v-model="formData.description.value"
+            ></textarea>
+            <small
+              v-if="formData.description.error != ''"
+              class="text-red-500"
+              >{{ formData.description.error }}</small
+            >
+          </div>
+          <div>
+            <!-- Tags -->
+            <small
+              v-if="formData.description.error != ''"
+              class="text-red-500"
+              >{{ formData.description.error }}</small
+            >
+          </div>
+          <div>
+            <input
+              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              placeholder="Application context"
+              type="text"
+              name="context"
+              id="context"
+              v-on:input="resetErrors()"
+              v-model="formData.context.value"
+            />
+            <small v-if="formData.context.error != ''" class="text-red-500">{{
+              formData.context.error
+            }}</small>
+          </div>
+          <div>
+            <input
+              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              placeholder="Reference ID"
+              type="text"
+              name="refId"
+              id="refId"
+              v-on:input="resetErrors()"
+              v-model="formData.context.value"
+            />
+            <small v-if="formData.context.error != ''" class="text-red-500">{{
+              formData.context.error
+            }}</small>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn-primary w-full"
+              @click="createRoom($event)"
+            >
+              Create
+            </button>
+          </div>
+          <p class="text-center">or</p>
+          <p class="text-center">
+            <router-link to="/join" class="btn-white w-full"
+              >Join a room</router-link
+            >
+          </p>
+        </div>
       </div>
-      <div>
-        <input
-          class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
-          placeholder="Room name"
-          type="text"
-          name="name"
-          id="name"
-          v-on:input="resetErrors()"
-          v-model="formData.roomName.value"
-        />
-        <small v-if="formData.roomName.error != ''" class="text-red-500">{{
-          formData.roomName.error
-        }}</small>
-      </div>
-      <div>
-        <button
-          type="button"
-          class="btn-primary w-full"
-          @click="createRoom($event)"
-        >
-          Create
-        </button>
-      </div>
-      <p class="text-center">or</p>
-      <p class="text-center">
-        <router-link to="/join">Join a room</router-link>
-      </p>
     </div>
   </div>
 </template>
+
 <script>
 import { getFormData } from "@/utils/form";
 import { mapGetters, mapActions } from "vuex";
@@ -54,13 +101,14 @@ export default {
   data() {
     return {
       formData: {
-        userName: { value: "", error: "" },
-        roomName: { value: "", error: "" },
+        name: { value: "", error: "" },
+        description: { value: "", error: "" },
+        tags: { value: [], error: "" },
+        context: { value: "", error: "" },
+        refId: { value: "", error: "" },
       },
     };
   },
-
-  mounted() {},
 
   computed: {
     ...mapGetters("data", ["get"]),
@@ -87,12 +135,8 @@ export default {
 
     isValid: function (data) {
       let valid = true;
-      if (data.userName === "") {
-        this.formData.userName.error = "Champ obligatoire";
-        valid = false;
-      }
-      if (data.roomName === "") {
-        this.formData.roomName.error = "Champ obligatoire";
+      if (data.name === "") {
+        this.formData.name.error = "Champ obligatoire";
         valid = false;
       }
       return valid;
@@ -105,5 +149,7 @@ export default {
       }
     },
   },
+
+  components: {},
 };
 </script>
