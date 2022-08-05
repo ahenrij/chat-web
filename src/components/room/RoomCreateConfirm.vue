@@ -5,7 +5,8 @@
     >
       <p class="text-2xl text-blue-500 mb-3">Room created!</p>
       <p>
-        Share the Room ID below to allow people to join it for conversation.
+        Copy and share the <b>Room ID</b> below to allow people to join your
+        newly created room for conversation.
       </p>
       <p class="copy h-12 mt-5 bg-slate-100 p-3 rounded-sm">
         {{ id }}
