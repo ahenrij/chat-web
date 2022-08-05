@@ -20,5 +20,38 @@ a {
 }
 
 .form-input {
-  @apply p-3 focus:border-sky-600 min-w-full;
+  @apply p-3 focus:border-red-600 min-w-full;
+}
+
+.text-input {
+  @apply !border-slate-400 block rounded-md p-3 md:p-4;
+}
+
+.text-input {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/**
+ * Customizing vue-tags-input
+ */
+.ti-new-tag-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.vue-tags-input {
+  @apply p-1;
+}
+
+.ti-input {
+  @apply !border-transparent;
+}
+
+.ti-tag {
+  @apply !bg-blue-500;
+}
+
+.ti-tag-center > span, .ti-icon-close {
+  @apply  text-white;
 }

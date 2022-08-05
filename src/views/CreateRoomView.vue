@@ -2,13 +2,13 @@
   <div class="container mx-auto">
     <div class="grid md:grid-cols-4 lg:grid-cols-6">
       <div
-        class="md:col-start-2 md:col-span-2 lg:col-start-3 lg:col-span-2 md:mx-0 mx-10"
+        class="md:col-start-2 md:col-span-2 lg:col-start-3 lg:col-span-2 md:mx-0 mx-10 mb-20"
       >
         <h2 class="text-2xl mt-20 mb-8 text-center">Create a new chat room</h2>
         <div class="space-y-5">
           <div>
             <input
-              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              class="form-input text-input"
               placeholder="Name"
               type="text"
               name="name"
@@ -22,7 +22,7 @@
           </div>
           <div>
             <textarea
-              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              class="form-input text-input"
               placeholder="Description"
               type="text"
               name="description"
@@ -37,7 +37,12 @@
             >
           </div>
           <div>
-            <!-- Tags -->
+            <vue-tags-input
+              class="form-input text-input"
+              v-model="tag"
+              :tags="formData.tags.value"
+              @tags-changed="(newTags) => (formData.tags.value = newTags)"
+            />
             <small
               v-if="formData.description.error != ''"
               class="text-red-500"
@@ -46,7 +51,7 @@
           </div>
           <div>
             <input
-              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              class="form-input text-input"
               placeholder="Application context"
               type="text"
               name="context"
@@ -60,7 +65,7 @@
           </div>
           <div>
             <input
-              class="form-input !border-slate-400 block rounded-md p-3 md:p-4"
+              class="form-input text-input"
               placeholder="Reference ID"
               type="text"
               name="refId"
@@ -94,12 +99,14 @@
 </template>
 
 <script>
+import VueTagsInput from "@sipec/vue3-tags-input";
 import { getFormData } from "@/utils/form";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
+      tag: "",
       formData: {
         name: { value: "", error: "" },
         description: { value: "", error: "" },
@@ -150,6 +157,8 @@ export default {
     },
   },
 
-  components: {},
+  components: {
+    VueTagsInput,
+  },
 };
 </script>
