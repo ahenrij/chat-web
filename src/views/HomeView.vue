@@ -5,12 +5,12 @@
   >
     <div class="px-10 pt-28 md:p-2">
       <h1 class="md:text-5xl lg:text-8xl text-4xl">Web Chat</h1>
-      <p class="text-xl pt-5 lg:text-3xl pr-10">
+      <p class="text-xl pt-5 lg:text-3xl !leading-normal pr-10">
         Create or join a chat room for real-time discussions with friends and
         family about your favorites topics.
       </p>
-      <router-link class="btn-primary mt-7" to="/create"
-        >Start a room</router-link
+      <router-link class="btn-primary mt-7" to="/create">
+        Start a room</router-link
       >
     </div>
     <div class="p-10 md:p-0">
