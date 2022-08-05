@@ -14,8 +14,8 @@
 
 <script>
 // @ is an alias to /src
-import MessageHistory from "@/components/room/MessageHistory";
-import MessageInput from "@/components/room/MessageInput";
+import MessageHistory from "@/components/message/MessageHistory";
+import MessageInput from "@/components/message/MessageInput";
 import { mapGetters } from "vuex";
 
 export default {
