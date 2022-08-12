@@ -17,6 +17,7 @@
           viewBox="0 0 24 24"
           stroke="currentColor"
           stroke-width="2"
+          @click="copyIdToClipboard"
         >
           <path
             stroke-linecap="round"
@@ -28,7 +29,10 @@
     </div>
   </div>
 </template>
+
 <script>
+import { copyToClipboard } from "@/utils/func";
+
 export default {
   props: {
     id: {
@@ -36,8 +40,20 @@ export default {
       defaultsTo: "",
     },
   },
+
+  methods: {
+    copyIdToClipboard() {
+      copyToClipboard(this.id).then(
+        () => {},
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
 };
 </script>
+
 <style scoped>
 .copy:hover > * {
   visibility: visible !important;

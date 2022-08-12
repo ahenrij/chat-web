@@ -13,4 +13,16 @@ module.exports = {
     }
     return text;
   },
+
+  /**
+   * Copy string to the clipboard
+   * @param {string} str to copy
+   * @returns Promise
+   */
+  copyToClipboard: function (str) {
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(str);
+    }
+    return Promise.reject("The Clipboard API is not available.");
+  },
 };
