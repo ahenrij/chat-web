@@ -44,8 +44,24 @@ export default {
   methods: {
     copyIdToClipboard() {
       copyToClipboard(this.id).then(
-        () => {},
+        () => {
+          this.$notify(
+            {
+              group: "generic",
+              text: "Copied!",
+            },
+            2000
+          );
+        },
         (error) => {
+          this.$notify(
+            {
+              group: "error",
+              title: "Error",
+              text: "Sorry, unable to copy the ID",
+            },
+            2000
+          );
           console.log(error);
         }
       );
