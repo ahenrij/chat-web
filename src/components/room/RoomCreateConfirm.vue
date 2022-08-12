@@ -1,7 +1,7 @@
 <template>
-  <div class="content-center mx-auto">
+  <div class="grid place-items-center mt-20 mx-auto">
     <div
-      class="shadow-lg bg-slate-50 !bg-white rounded-md md:w-1/2 lg:w-2/5 p-10 border-red-600"
+      class="shadow-lg bg-slate-50 !bg-white rounded-md !self-center md:w-1/2 lg:w-2/5 p-10 border-red-600"
     >
       <p class="text-2xl text-blue-500 mb-3">Room created!</p>
       <p>
