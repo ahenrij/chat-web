@@ -3,10 +3,15 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view />
+  <div>
+    <notifications-view />
+    <router-view />
+  </div>
 </template>
+
 <script>
 import { uuid } from "@/utils/func";
+import NotificationsView from "./components/utils/NotificationsView.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -25,8 +30,13 @@ export default {
   methods: {
     ...mapActions("data", ["set"]),
   },
+
+  components: {
+    NotificationsView,
+  },
 };
 </script>
+
 <style>
 nav {
   padding: 30px;
