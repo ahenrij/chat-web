@@ -63,13 +63,13 @@
           move-delay="delay-300"
         >
           <div
-            class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-lg shadow-md"
+            class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-md shadow-md"
             v-for="notification in notifications"
             :key="notification.id"
           >
             <div class="flex items-center justify-center w-12 bg-blue-500">
               <svg
-                class="w-6 h-6 text-white fill-current"
+                class="w-6 h-6 !text-white fill-current"
                 viewBox="0 0 40 40"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -81,9 +81,9 @@
 
             <div class="px-4 py-2 -mx-3">
               <div class="mx-3">
-                <span class="font-semibold text-blue-500"
-                  >{{ notification.title }}Info</span
-                >
+                <span class="font-semibold text-blue-500">{{
+                  notification.title || "Info"
+                }}</span>
                 <p class="text-sm text-gray-600">{{ notification.text }}</p>
               </div>
             </div>
