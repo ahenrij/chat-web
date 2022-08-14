@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <create-room-form v-if="!roomCreated" @created="onRoomCreated" />
-    <create-room-confirmation :id="createdRoomId" v-else />
+    <create-room-confirmation v-else :id="createdRoomId" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       roomCreated: false,
-      createdRoomId: "bz77ud7ibuedh46zevdlal24567",
+      createdRoomId: null,
     };
   },
 
