@@ -82,11 +82,8 @@
             Create
           </button>
         </div>
-        <p class="text-center">or</p>
-        <p class="text-center">
-          <router-link to="/join" class="btn-white w-full"
-            >Join a room</router-link
-          >
+        <p class="text-left">
+          Invited? <router-link to="/join">Join a room</router-link>
         </p>
       </div>
     </div>

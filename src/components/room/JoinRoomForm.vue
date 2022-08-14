@@ -43,7 +43,7 @@
           </button>
         </div>
         <p class="text-left">
-          No room ? <router-link to="/create">Create a room</router-link>
+          No room? <router-link to="/create">Create a room</router-link>
         </p>
       </div>
     </div>
