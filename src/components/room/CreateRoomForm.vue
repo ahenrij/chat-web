@@ -67,10 +67,10 @@
             name="refId"
             id="refId"
             v-on:input="resetErrors()"
-            v-model="formData.context.value"
+            v-model="formData.refId.value"
           />
-          <small v-if="formData.context.error != ''" class="text-red-500">{{
-            formData.context.error
+          <small v-if="formData.refId.error != ''" class="text-red-500">{{
+            formData.refId.error
           }}</small>
         </div>
         <div>
@@ -96,7 +96,6 @@
 <script>
 import VueTagsInput from "@sipec/vue3-tags-input";
 import { getFormData, setFormData } from "@/utils/form";
-import { toast } from "@/utils/notif";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -125,12 +124,13 @@ export default {
      * Create a new chat room using form data
      * @param {*} event
      */
-    createRoom(event) {
+    createRoom: function (event) {
       event.preventDefault();
       const data = getFormData(this.formData);
       if (this.isValid(data)) {
-        // Adding some default values
+        // Fixing some values
         data.isPrivate = false;
+        data.tags = data.tags.map((t) => t.text.trim());
         this.postData(data);
       }
     },
@@ -138,7 +138,7 @@ export default {
     /**
      * Make actual post request
      */
-    async postData(room) {
+    postData: async function (room) {
       const payload = {
         requestData: { method: "post", url: "", data: room },
         commit: false,
@@ -147,7 +147,7 @@ export default {
 
       if (!createdRoom) {
         const error = this.get("loadingError");
-        toast(
+        this.toast(
           "error",
           this.title,
           error ? error : "Oops ! Une erreur est survenue"
@@ -175,6 +175,10 @@ export default {
       for (const [_, value] of Object.entries(this.formData)) {
         value.error = "";
       }
+    },
+
+    toast: function (type, title, message, duration = 2000) {
+      this.$notify({ group: type, title: title, text: message }, duration);
     },
   },
 
