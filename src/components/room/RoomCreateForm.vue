@@ -101,6 +101,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
+      title: "Room Creation",
       tag: "",
       formData: {
         name: { value: "", error: "" },
@@ -119,19 +120,37 @@ export default {
   methods: {
     ...mapActions("data", ["makeRequest", "setProperty", "addRoom"]),
 
+    /**
+     * Create a new chat room using form data
+     * @param {*} event
+     */
     createRoom(event) {
       event.preventDefault();
       const data = getFormData(this.formData);
       if (this.isValid(data)) {
-        console.log(data);
+        this.postData(data);
       }
     },
 
     /**
      * Make actual post request
      */
-    async postRoom(name) {
-      console.log(name);
+    async postData(room) {
+      const payload = {
+        requestData: { method: "post", url: "", data: room },
+        commit: false,
+      };
+      const response = await this.makeRequest(payload);
+
+      if (!response) {
+        const error = this.get("loadingError");
+        this.toast(
+          "error",
+          this.title,
+          error ? error : "Oops ! Une erreur est survenue"
+        );
+        console.log(error);
+      }
     },
 
     isValid: function (data) {
