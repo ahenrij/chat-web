@@ -1,13 +1,13 @@
 <template>
   <div class="container mx-auto">
-    <room-create-form v-if="!roomCreated" @created="onRoomCreated" />
-    <room-create-confirm :id="createdRoomId" v-else />
+    <create-room-form v-if="!roomCreated" @created="onRoomCreated" />
+    <create-room-confirmation :id="createdRoomId" v-else />
   </div>
 </template>
 
 <script>
-import RoomCreateForm from "@/components/room/RoomCreateForm.vue";
-import RoomCreateConfirm from "@/components/room/RoomCreateConfirm.vue";
+import CreateRoomForm from "@/components/room/CreateRoomForm.vue";
+import CreateRoomConfirmation from "@/components/room/CreateRoomConfirmation.vue";
 
 export default {
   data() {
@@ -25,8 +25,8 @@ export default {
   },
 
   components: {
-    RoomCreateForm,
-    RoomCreateConfirm,
+    CreateRoomForm,
+    CreateRoomConfirmation,
   },
 };
 </script>
