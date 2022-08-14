@@ -140,7 +140,7 @@ export default {
      */
     postData: async function (room) {
       const payload = {
-        requestData: { method: "post", url: "", data: room },
+        requestData: { method: "post", url: "/room", data: room },
         commit: false,
       };
       const createdRoom = await this.makeRequest(payload);
@@ -157,7 +157,7 @@ export default {
       }
 
       // room is successfully created
-      setFormData(null, this.formData);
+      setFormData(this.formData, null);
       this.$emit("created", createdRoom.id);
     },
 
