@@ -1,7 +1,6 @@
 <template>
   <div
-    style="margin-top: -100px"
-    class="container items-center h-screen mx-auto pt-10 md:grid md:grid-cols-2"
+    class="container items-center h-screen mx-auto -mt-24 px-8 pt-10 md:grid md:grid-cols-2"
   >
     <div class="px-10 pt-28 md:p-2">
       <h1 class="md:text-5xl lg:text-8xl text-4xl">Web Chat</h1>
