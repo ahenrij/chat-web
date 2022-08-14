@@ -19,8 +19,6 @@ import MessageInput from "@/components/message/MessageInput";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "room-view",
-
   data() {
     return {
       title: "Chat Web",
