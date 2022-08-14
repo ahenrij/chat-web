@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <room-create-form v-if="!roomCreated" @created="roomCreated = true" />
+    <room-create-form v-if="!roomCreated" @created="onRoomCreated" />
     <room-create-confirm :id="createdRoomId" v-else />
   </div>
 </template>
@@ -15,6 +15,13 @@ export default {
       roomCreated: false,
       createdRoomId: "bz77ud7ibuedh46zevdlal24567",
     };
+  },
+
+  methods: {
+    onRoomCreated(roomId) {
+      this.roomCreated = true;
+      this.createdRoomId = roomId;
+    },
   },
 
   components: {

@@ -39,7 +39,7 @@ const actions = {
       if (payload.commit) {
         commit("mutate", {
           property: payload.stateProperty,
-          with: response.data.data,
+          with: response.data,
         });
       }
       return response.data;

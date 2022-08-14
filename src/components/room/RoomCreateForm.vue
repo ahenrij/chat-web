@@ -95,7 +95,8 @@
 
 <script>
 import VueTagsInput from "@sipec/vue3-tags-input";
-import { getFormData } from "@/utils/form";
+import { getFormData, setFormData } from "@/utils/form";
+import { toast } from "@/utils/notif";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -128,6 +129,8 @@ export default {
       event.preventDefault();
       const data = getFormData(this.formData);
       if (this.isValid(data)) {
+        // Adding some default values
+        data.isPrivate = false;
         this.postData(data);
       }
     },
@@ -140,17 +143,22 @@ export default {
         requestData: { method: "post", url: "", data: room },
         commit: false,
       };
-      const response = await this.makeRequest(payload);
+      const createdRoom = await this.makeRequest(payload);
 
-      if (!response) {
+      if (!createdRoom) {
         const error = this.get("loadingError");
-        this.toast(
+        toast(
           "error",
           this.title,
           error ? error : "Oops ! Une erreur est survenue"
         );
         console.log(error);
+        return;
       }
+
+      // room is successfully created
+      setFormData(null, this.formData);
+      this.$emit("created", createdRoom.id);
     },
 
     isValid: function (data) {
