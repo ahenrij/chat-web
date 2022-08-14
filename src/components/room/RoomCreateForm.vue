@@ -1,9 +1,9 @@
 <template>
   <div class="grid md:grid-cols-4 lg:grid-cols-6">
     <div
-      class="md:col-start-2 md:col-span-2 lg:col-start-3 lg:col-span-2 md:mx-0 mx-10 mb-20"
+      class="md:col-start-2 md:col-span-2 lg:col-start-3 lg:col-span-2 md:mx-0 mx-10 my-16"
     >
-      <h2 class="text-2xl mt-20 mb-8 text-center">Create a new chat room</h2>
+      <h2 class="text-2xl mb-8 text-center">Create a new chat room</h2>
       <div class="space-y-5">
         <div>
           <input
@@ -25,6 +25,7 @@
             placeholder="Description"
             type="text"
             name="description"
+            rows="1"
             id="description"
             v-on:input="resetErrors()"
             v-model="formData.description.value"
@@ -122,8 +123,7 @@ export default {
       event.preventDefault();
       const data = getFormData(this.formData);
       if (this.isValid(data)) {
-        // update me name
-        this.setProperty({ obj: "me", property: "name", value: data.userName });
+        console.log(data);
       }
     },
 
