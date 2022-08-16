@@ -1,4 +1,4 @@
-import { DataService, DataError } from "../services/data.service";
+import { DataService, DataError } from "../../services/data.service";
 
 const state = {
   loading: false,
