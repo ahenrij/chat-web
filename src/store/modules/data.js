@@ -1,9 +1,6 @@
 import { DataService, DataError } from "../../services/data.service";
 
 const state = {
-  loading: false,
-  loadingErrorCode: "",
-  loadingError: "",
   histories: {}, // of roomId: messages[]
   rooms: [], // of { id, title }
   me: {},
@@ -31,11 +28,11 @@ const actions = {
    * @throws DataError
    **/
   async makeRequest({ commit }, payload) {
-    commit("loadingRequest");
+    commit("loading/request", null, { root: true });
     try {
       const response = await DataService.makeRequest(payload.requestData);
       //console.log(response);
-      commit("loadingSuccess");
+      commit("loading/success", null, { root: true });
       if (payload.commit) {
         commit("mutate", {
           property: payload.stateProperty,
@@ -45,15 +42,23 @@ const actions = {
       return response.data;
     } catch (e) {
       if (e instanceof DataError) {
-        commit("loadingError", {
-          errorCode: e.errorCode,
-          errorMessage: e.message,
-        });
+        commit(
+          "loading/error",
+          {
+            errorCode: e.errorCode,
+            errorMessage: e.message,
+          },
+          { root: true }
+        );
       } else {
-        commit("loadingError", {
-          errorCode: 501,
-          errorMessage: "Connexion au serveur impossible",
-        });
+        commit(
+          "loading/error",
+          {
+            errorCode: 501,
+            errorMessage: "Connexion au serveur impossible",
+          },
+          { root: true }
+        );
       }
       return false;
     }
@@ -87,22 +92,6 @@ const actions = {
 };
 
 const mutations = {
-  loadingRequest(state) {
-    state.loading = true;
-    state.loadingError = "";
-    state.loadingError = 0;
-  },
-
-  loadingSuccess(state) {
-    state.loading = false;
-  },
-
-  loadingError(state, { errorCode, errorMessage }) {
-    state.loading = false;
-    state.loadingErrorCode = errorCode;
-    state.loadingError = errorMessage;
-  },
-
   mutate(state, payload) {
     state[payload.property] = payload.with;
   },
