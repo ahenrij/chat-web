@@ -11,10 +11,6 @@ const getters = {
     return state[property];
   },
 
-  getHistory: (state) => (roomId) => {
-    return state.histories[roomId];
-  },
-
   loading: (state) => {
     return state.loading;
   },
@@ -79,14 +75,6 @@ const actions = {
     commit("append", {
       obj: "rooms",
       value: room,
-    });
-  },
-
-  addHistory({ commit }, { roomId, history }) {
-    commit("setProperty", {
-      obj: "histories",
-      property: roomId,
-      value: history,
     });
   },
 };
