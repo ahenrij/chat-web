@@ -21,6 +21,7 @@ const actions = {
         console.log(res.error);
         commit("loading/success", null, { root: true });
       }
+      console.log(res);
     });
   },
 
