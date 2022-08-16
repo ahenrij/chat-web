@@ -1,3 +1,5 @@
+import router from "@/router";
+
 const state = {
   isConnected: false,
 };
@@ -13,15 +15,24 @@ const getters = {
 };
 
 const actions = {
-  join: async function ({ commit }, payload) {
+  joinRoom: async function ({ commit, dispatch }, payload) {
     commit("loading/request", null, { root: true });
-    this.$io.socket.post("/room/join", payload, async function (res, jwres) {
-      console.log(jwres);
-      if (res.error) {
-        console.log(res.error);
-        commit("loading/success", null, { root: true });
+    this.$io.socket.post("/room/join", payload, function (res, jwres) {
+      if (jwres.error) {
+        commit(
+          "loading/error",
+          {
+            errorCode: jwres.statusCode,
+            errorMessage: res.data.message,
+          },
+          { root: true }
+        );
+        return;
       }
-      console.log(res);
+      commit("loading/success", null, { root: true });
+      dispatch("data/addRoom", res.data, { root: true });
+      router.push({ name: "room" });
+      return res.data;
     });
   },
 

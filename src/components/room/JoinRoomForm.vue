@@ -37,7 +37,7 @@
           <button
             type="button"
             class="btn-primary w-full"
-            @click="joinRoom($event)"
+            @click="join($event)"
           >
             Join now
           </button>
@@ -67,12 +67,14 @@ export default {
 
   computed: {
     ...mapGetters("data", ["get"]),
+    ...mapGetters("loading", ["loadingError"]),
   },
 
   methods: {
-    ...mapActions("data", ["makeRequest", "setProperty"]),
+    ...mapActions("data", ["setProperty"]),
+    ...mapActions("room", ["joinRoom"]),
 
-    joinRoom: function (event) {
+    join: function (event) {
       event.preventDefault();
       // update user name when joined
       const data = getFormData(this.formData);
@@ -90,14 +92,9 @@ export default {
       data.user = this.get("me");
       delete data.username;
 
-      const payload = {
-        requestData: { method: "post", url: "/room/join", data: data },
-        commit: false,
-      };
-      const response = await this.makeRequest(payload);
-
-      if (!response) {
-        const error = this.get("loadingError");
+      this.joinRoom(data);
+      const error = this.loadingError;
+      if (error !== "") {
         this.toast(
           "error",
           this.title,
@@ -106,10 +103,8 @@ export default {
         console.log(error);
         return;
       }
-
       // room is joined successfully
       setFormData(this.formData, null);
-      this.$router.push({ name: "room" });
     },
 
     isValid: function (data) {
