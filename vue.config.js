@@ -8,7 +8,6 @@ module.exports = defineConfig({
       "^/socket.io": {
         target: "http://localhost:1337/",
         ws: true,
-        // changeOrigin: true
       },
     },
   },
