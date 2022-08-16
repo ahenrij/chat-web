@@ -3,12 +3,12 @@
     <div
       class="shadow-lg bg-slate-50 !bg-white rounded-md !self-center md:w-1/2 lg:w-2/5 p-10 border-red-600"
     >
-      <p class="text-2xl text-blue-500 mb-3">Room created!</p>
-      <p>
+      <p class="text-2xl text-blue-500 mb-3">Room created</p>
+      <p class="mt-7">
         Copy and share the <b>Room ID</b> below to allow people to join your
         newly created room for conversation.
       </p>
-      <p class="copy h-12 mt-5 bg-slate-100 p-3 rounded-sm">
+      <p class="copy h-12 my-5 bg-slate-100 p-3 font-bold rounded-sm">
         {{ id }}
         <svg
           class="h-6 w-6 float-right invisible cursor-pointer"
@@ -26,6 +26,12 @@
           />
         </svg>
       </p>
+      <router-link
+        class="btn-primary float-right"
+        :to="{ name: 'join', query: { id: id } }"
+      >
+        Join room</router-link
+      >
     </div>
   </div>
 </template>
