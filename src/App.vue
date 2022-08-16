@@ -16,11 +16,11 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   created() {
-    var me = this.get("me");
-    if (!("uuid" in me)) {
-      me = { uuid: uuid(10) }; // 10 characters identifier.
+    const me = this.get("me");
+    if (!("id" in me)) {
+      // create user with a 10 characters identifier.
+      this.setProperty({ obj: "me", property: "id", value: uuid(10) });
     }
-    this.set({ property: "me", value: me });
   },
 
   computed: {
@@ -28,7 +28,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("data", ["set"]),
+    ...mapActions("data", ["setProperty"]),
   },
 
   components: {
