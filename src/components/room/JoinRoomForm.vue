@@ -51,9 +51,13 @@
 </template>
 
 <script>
+import { getFormData, setFormData } from "@/utils/form";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   data() {
     return {
+      title: "Join room",
       formData: {
         roomId: { value: this.$route.query.id || "", error: "" },
         username: { value: "", error: "" },
@@ -61,12 +65,75 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters("data", ["get"]),
+  },
+
   methods: {
-    joinRoom(event) {
+    ...mapActions("data", ["makeRequest", "setProperty"]),
+
+    joinRoom: function (event) {
       event.preventDefault();
       // update user name when joined
-      const data = {};
-      this.setProperty({ obj: "me", property: "name", value: data.userName });
+      const data = getFormData(this.formData);
+      if (this.isValid(data)) {
+        this.postData(data);
+      }
+    },
+
+    /**
+     * Make actual post request
+     */
+    postData: async function (data) {
+      // Fix body for web socket request
+      this.setProperty({ obj: "me", property: "name", value: data.username });
+      data.user = this.get("me");
+      delete data.username;
+
+      const payload = {
+        requestData: { method: "post", url: "/room/join", data: data },
+        commit: false,
+      };
+      const response = await this.makeRequest(payload);
+
+      if (!response) {
+        const error = this.get("loadingError");
+        this.toast(
+          "error",
+          this.title,
+          error ? error : "Oops ! Une erreur est survenue"
+        );
+        console.log(error);
+        return;
+      }
+
+      // room is joined successfully
+      setFormData(this.formData, null);
+      this.$router.push({ name: "room" });
+    },
+
+    isValid: function (data) {
+      let valid = true;
+      if (data.roomId === "") {
+        this.formData.roomId.error = "Champ obligatoire";
+        valid = false;
+      }
+      if (data.username === "") {
+        this.formData.username.error = "Champ obligatoire";
+        valid = false;
+      }
+      return valid;
+    },
+
+    resetErrors: function () {
+      // eslint-disable-next-line no-unused-vars
+      for (const [_, value] of Object.entries(this.formData)) {
+        value.error = "";
+      }
+    },
+
+    toast: function (type, title, message, duration = 2000) {
+      this.$notify({ group: type, title: title, text: message }, duration);
     },
   },
 };
