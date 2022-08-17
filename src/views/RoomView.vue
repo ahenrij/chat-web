@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .room-view {
   @apply bg-white shadow-lg rounded-sm h-max;
 }

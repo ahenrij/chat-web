@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .from {
   @apply block text-sm mb-1;
 }
