@@ -1,6 +1,6 @@
 const state = {
   loading: false,
-  loadingErrorCode: "",
+  loadingErrorCode: 0,
   loadingError: "",
 };
 
