@@ -45,6 +45,6 @@ export default {
 
 <style lang="postcss" scoped>
 .room-view {
-  @apply bg-white shadow-lg rounded-sm h-max;
+  @apply bg-white shadow-lg h-max;
 }
 </style>

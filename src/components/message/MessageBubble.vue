@@ -25,17 +25,17 @@ export default {
   @apply block text-sm mb-1;
 }
 .message-text {
-  @apply block bg-blue-300 text-white w-fit pr-6 pl-3 py-1 rounded-lg rounded-tl-none;
+  @apply block bg-white w-fit shadow-sm pr-6 pl-3 py-1 rounded-lg rounded-tl-none;
 }
 .message-bubble {
-  @apply my-3;
+  @apply my-2;
 }
 
 .from.me {
   @apply text-right;
 }
 .message-text.me {
-  @apply bg-blue-500 rounded-lg rounded-tr-none right-0;
+  @apply bg-blue-500 text-white rounded-lg rounded-tr-none right-0;
 }
 .message-bubble.me {
   @apply place-self-end;

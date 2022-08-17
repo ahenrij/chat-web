@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-history !bg-blue-50 p-4 px-20 !w-full">
+  <div class="chat-history !bg-stone-100 p-4 px-20 !w-full">
     <message-bubble
       v-for="msg in history"
       :key="msg.id"

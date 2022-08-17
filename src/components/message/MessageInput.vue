@@ -1,9 +1,10 @@
 <template>
   <div class="message-input">
     <textarea
-      class="w-full"
+      class="form-input text-input w-full"
       ref="messageInput"
-      placeholder="message..."
+      rows="1"
+      placeholder="Type a message"
       maxlength="20000"
       @keydown.enter="sendMessage"
     ></textarea>
@@ -30,3 +31,13 @@ export default {
   },
 };
 </script>
+
+<style lang="postcss" scoped>
+.text-input {
+  @apply py-2 bg-white !border-white resize-none text-sm placeholder:text-slate-400;
+}
+
+.message-input {
+  @apply px-8 py-2 bg-gray-200;
+}
+</style>
