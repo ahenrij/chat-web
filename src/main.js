@@ -8,6 +8,6 @@ import "./assets/css/main.css";
 import "./assets/css/style.css";
 
 // Set the base url of the API
-ApiService.init(process.env.VUE_APP_ROOT_API, store);
+ApiService.init(process.env.VUE_APP_ROOT_API);
 
 createApp(App).use(store).use(router).use(Notifications).mount("#app");

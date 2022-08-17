@@ -15,24 +15,16 @@ const getters = {
 };
 
 const actions = {
-  joinRoom: async function ({ commit, dispatch }, payload) {
+  joinRoom: function ({ commit, dispatch }, payload) {
     commit("loading/request", null, { root: true });
     this.$io.socket.post("/room/join", payload, function (res, jwres) {
       if (jwres.error) {
-        commit(
-          "loading/error",
-          {
-            errorCode: jwres.statusCode,
-            errorMessage: res.data.message,
-          },
-          { root: true }
-        );
-        return;
+        console.log(jwres);
+      } else {
+        commit("loading/success", null, { root: true });
+        dispatch("data/addRoom", res.data, { root: true });
+        router.push({ name: "room" });
       }
-      commit("loading/success", null, { root: true });
-      dispatch("data/addRoom", res.data, { root: true });
-      router.push({ name: "room" });
-      return res.data;
     });
   },
 
