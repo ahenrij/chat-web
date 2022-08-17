@@ -1,23 +1,24 @@
 <template>
-  <div class="chat-history">
+  <div class="chat-history !bg-blue-50 p-4 px-20 !w-full">
     <message-bubble
       v-for="msg in history"
-      v-bind:key="msg.id"
-      v-bind:uuid="msg.sender"
-      v-bind:text="msg.message"
-    >
-    </message-bubble>
+      :key="msg.id"
+      :me="me"
+      :sender="msg.sender"
+      :text="msg.message"
+    />
   </div>
 </template>
 <script>
 import MessageBubble from "@/components/message/MessageBubble.vue";
-// import { mapGetters } from "vuex";
 
 function scrollBottom() {
   this.$el.scrollTo(0, this.$el.scrollHeight);
 }
 
 export default {
+  props: ["me"],
+
   data() {
     return {
       history: [],
@@ -25,7 +26,24 @@ export default {
   },
 
   mounted() {
-    this.history = []; //make request to get history
+    this.history = [
+      {
+        id: "1",
+        sender: {
+          id: "1456ZBDJH",
+          name: "Henri",
+        },
+        message: "Hi there!",
+      },
+      {
+        id: "2",
+        sender: {
+          id: "e22a003344",
+          name: "ahenrij",
+        },
+        message: "Yo!",
+      },
+    ]; //make request to get history
   },
 
   watch: {
