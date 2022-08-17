@@ -19,7 +19,7 @@ const mutations = {
   request(state) {
     state.loading = true;
     state.loadingError = "";
-    state.loadingError = 0;
+    state.loadingErrorCode = 0;
   },
 
   success(state) {
