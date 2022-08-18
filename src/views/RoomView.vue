@@ -31,7 +31,6 @@ export default {
     }
     this.me = this.get("me");
     this.room = this.get("rooms")[0];
-    // make join request
   },
 
   computed: {
