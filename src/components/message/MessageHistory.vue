@@ -1,12 +1,20 @@
 <template>
-  <div class="chat-history !bg-stone-100 p-4 px-20 !w-full">
-    <message-bubble
-      v-for="msg in history"
-      :key="msg.id"
-      :me="me"
-      :sender="msg.sender"
-      :text="msg.message"
-    />
+  <div
+    class="chat-history !bg-stone-100 p-4 px-20 !w-full"
+    :class="{ empty: historyIsEmpty }"
+  >
+    <div v-if="!historyIsEmpty" class="w-full">
+      <message-bubble
+        v-for="msg in history"
+        :key="msg.id"
+        :me="me"
+        :sender="msg.sender"
+        :text="msg.message"
+      />
+    </div>
+    <div v-else class="w-full">
+      <p class="text-center">No messages</p>
+    </div>
   </div>
 </template>
 <script>
@@ -52,8 +60,26 @@ export default {
     },
   },
 
+  computed: {
+    historyIsEmpty() {
+      return this.history.length === 0;
+    },
+  },
+
   components: {
     MessageBubble,
   },
 };
 </script>
+
+<style lang="postcss" scoped>
+.chat-history {
+  min-height: 400px !important;
+}
+.chat-history {
+  @apply flex items-end;
+}
+.chat-history.empty {
+  @apply flex !items-center;
+}
+</style>
