@@ -1,5 +1,3 @@
-import router from "@/router";
-
 const state = {
   isConnected: false,
 };
@@ -15,17 +13,21 @@ const getters = {
 };
 
 const actions = {
-  joinRoom: function ({ commit, dispatch }, payload) {
+  joinRoom: async function ({ commit, dispatch }, payload) {
     commit("loading/request", null, { root: true });
-    this.$io.socket.post("/room/join", payload, function (res, jwres) {
-      if (jwres.error) {
-        console.log(jwres);
-      } else {
-        commit("loading/success", null, { root: true });
-        dispatch("data/addRoom", res.data, { root: true });
-        router.push({ name: "room" });
-      }
-    });
+    const res = await this.$io.socket.postAsync("/room/join", payload);
+    if (!res.data) {
+      commit(
+        "loading/error",
+        { errorCode: 404, errorMessage: res },
+        { root: true }
+      );
+      return false;
+    }
+    commit("loading/success", null, { root: true });
+    commit("mutate", { property: "isConnected", with: true });
+    dispatch("data/addRoom", res.data, { root: true });
+    return res.data;
   },
 
   setChatHistory({ commit }, { roomId, chatHistory }) {
@@ -41,7 +43,11 @@ const actions = {
   },
 };
 
-const mutations = {};
+const mutations = {
+  mutate(state, payload) {
+    state[payload.property] = payload.with;
+  },
+};
 
 export const room = {
   namespaced: true,

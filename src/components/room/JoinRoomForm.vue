@@ -88,33 +88,36 @@ export default {
      */
     postData: async function (data) {
       // Fix body for web socket request
-      this.setProperty({ obj: "me", property: "name", value: data.username });
-      data.user = this.get("me");
+      data.user = { ...this.get("me") };
+      data.user.name = data.username;
       delete data.username;
 
-      this.joinRoom(data);
-      const error = this.loadingError;
-      if (error !== "") {
+      const room = await this.joinRoom(data);
+
+      if (!room) {
         this.toast(
           "error",
           this.title,
-          error ? error : "Oops ! Une erreur est survenue"
+          this.loadingError
+            ? this.loadingError
+            : "Oops ! Something wrong happened"
         );
-        console.log(error);
         return;
       }
       // room is joined successfully
+      this.setProperty({ obj: "me", property: "name", value: data.user.name });
       setFormData(this.formData, null);
+      this.$router.push({ name: "room" });
     },
 
     isValid: function (data) {
       let valid = true;
       if (data.roomId === "") {
-        this.formData.roomId.error = "Champ obligatoire";
+        this.formData.roomId.error = "Mandatory field";
         valid = false;
       }
       if (data.username === "") {
-        this.formData.username.error = "Champ obligatoire";
+        this.formData.username.error = "Mandatory field";
         valid = false;
       }
       return valid;
