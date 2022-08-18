@@ -62,7 +62,7 @@ export default {
     leave: async function (event) {
       event.preventDefault();
       const payload = {
-        roomId: "test",
+        roomId: this.room.id,
         user: this.me,
       };
       const res = await this.leaveRoom(payload);
@@ -76,6 +76,7 @@ export default {
         );
         return;
       }
+      // room successfully leaved
       this.$router.push({ name: "join" });
     },
   },
