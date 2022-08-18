@@ -14,6 +14,10 @@ const getters = {
   loading: (state) => {
     return state.loading;
   },
+
+  getChatHistory: (_state, _getters, rootState) => (roomId) => {
+    return rootState.histories[roomId];
+  },
 };
 
 const actions = {
@@ -76,6 +80,18 @@ const actions = {
       obj: "rooms",
       value: room,
     });
+  },
+
+  setChatHistory({ commit }, { roomId, chatHistory }) {
+    commit(
+      "setProperty",
+      {
+        obj: "histories",
+        property: roomId,
+        value: chatHistory,
+      },
+      { root: true }
+    );
   },
 };
 

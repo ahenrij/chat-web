@@ -72,7 +72,7 @@ export default {
 
   methods: {
     ...mapActions("data", ["setProperty"]),
-    ...mapActions("room", ["joinRoom"]),
+    ...mapActions("roomSocket", ["joinRoom"]),
 
     join: function (event) {
       event.preventDefault();

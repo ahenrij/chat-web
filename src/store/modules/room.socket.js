@@ -6,10 +6,6 @@ const getters = {
   isConnected: (state) => () => {
     return state.isConnected;
   },
-
-  getChatHistory: (_state, _getters, rootState) => (roomId) => {
-    return rootState.histories[roomId];
-  },
 };
 
 const actions = {
@@ -28,18 +24,6 @@ const actions = {
     commit("mutate", { property: "isConnected", with: true });
     dispatch("data/addRoom", res.data, { root: true });
     return res.data;
-  },
-
-  setChatHistory({ commit }, { roomId, chatHistory }) {
-    commit(
-      "data/setProperty",
-      {
-        obj: "histories",
-        property: roomId,
-        value: chatHistory,
-      },
-      { root: true }
-    );
   },
 };
 
