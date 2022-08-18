@@ -27,6 +27,9 @@ export default {
   },
 
   mounted() {
+    if (!this.isConnected) {
+      this.$router.push({ name: "join" });
+    }
     this.me = this.get("me");
     this.room = this.get("rooms")[0];
     // make join request
@@ -34,6 +37,7 @@ export default {
 
   computed: {
     ...mapGetters("data", ["loading", "get"]),
+    ...mapGetters("roomSocket", ["isConnected"]),
   },
 
   components: {

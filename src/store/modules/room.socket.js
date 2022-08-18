@@ -3,7 +3,7 @@ const state = {
 };
 
 const getters = {
-  isConnected: (state) => () => {
+  isConnected: (state) => {
     return state.isConnected;
   },
 };
@@ -13,17 +13,41 @@ const actions = {
     commit("loading/request", null, { root: true });
     const res = await this.$io.socket.postAsync("/room/join", payload);
     if (!res.data) {
-      commit(
-        "loading/error",
-        { errorCode: 404, errorMessage: res },
-        { root: true }
-      );
+      dispatch("handleError", res);
       return false;
     }
     commit("loading/success", null, { root: true });
     commit("mutate", { property: "isConnected", with: true });
-    dispatch("data/addRoom", res.data, { root: true });
+    commit(
+      "data/append",
+      { property: "rooms", value: res.data },
+      { root: true }
+    );
     return res.data;
+  },
+
+  leaveRoom: async function ({ commit, dispatch }, payload) {
+    commit("loading/request", null, { root: true });
+    const res = await this.$io.socket.postAsync("/room/leave", payload);
+    if (!res.data) {
+      dispatch("handleError", res);
+      return false;
+    }
+    commit("loading/success", null, { root: true });
+    commit("mutate", { property: "isConnected", with: false });
+    commit(
+      "data/removeById",
+      { property: "rooms", id: res.data.id },
+      { root: true }
+    );
+  },
+
+  handleError({ commit }, res) {
+    commit(
+      "loading/error",
+      { errorCode: 404, errorMessage: res },
+      { root: true }
+    );
   },
 };
 
@@ -33,7 +57,7 @@ const mutations = {
   },
 };
 
-export const room = {
+export const roomSocket = {
   namespaced: true,
   state,
   getters,
@@ -41,4 +65,4 @@ export const room = {
   mutations,
 };
 
-export default room;
+export default roomSocket;

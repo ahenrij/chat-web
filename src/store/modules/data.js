@@ -1,4 +1,5 @@
-import { DataService, DataError } from "../../services/data.service";
+import { DataService, DataError } from "@/services/data.service";
+import { remove } from "@/utils/func";
 
 const state = {
   histories: {}, // of roomId: messages[]
@@ -75,23 +76,12 @@ const actions = {
     commit("setProperty", { obj, property, value });
   },
 
-  addRoom({ commit }, room) {
-    commit("append", {
-      obj: "rooms",
-      value: room,
-    });
-  },
-
   setChatHistory({ commit }, { roomId, chatHistory }) {
-    commit(
-      "setProperty",
-      {
-        obj: "histories",
-        property: roomId,
-        value: chatHistory,
-      },
-      { root: true }
-    );
+    commit("setProperty", {
+      obj: "histories",
+      property: roomId,
+      value: chatHistory,
+    });
   },
 };
 
@@ -105,7 +95,11 @@ const mutations = {
   },
 
   append(state, payload) {
-    state[payload.obj].push(payload.value);
+    state[payload.property].push(payload.value);
+  },
+
+  removeById(state, payload) {
+    remove(state[payload.property], (r) => r.id === payload.id);
   },
 };
 
