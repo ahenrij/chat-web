@@ -38,6 +38,7 @@ const actions = {
       { property: "rooms", id: room.id },
       { root: true }
     );
+    return true;
   },
 
   handleError({ commit }, res) {

@@ -1,7 +1,7 @@
 <template>
   <div class="room-view md:mx-16 lg:mx-96 my-8">
     <div class="w-full">
-      <room-header :room="room"></room-header>
+      <room-header :me="me" :room="room"></room-header>
       <message-history :me="me"></message-history>
       <message-input></message-input>
     </div>

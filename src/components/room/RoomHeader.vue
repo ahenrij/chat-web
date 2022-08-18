@@ -45,16 +45,38 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 import Alpine from "alpinejs";
 Alpine.start();
 
 export default {
-  props: ["room"],
+  props: ["me", "room"],
+
+  computed: {
+    ...mapGetters("loading", ["loadingError"]),
+  },
 
   methods: {
-    leave: function (event) {
+    ...mapActions("roomSocket", ["leaveRoom"]),
+
+    leave: async function (event) {
       event.preventDefault();
-      console.log("leave...");
+      const payload = {
+        roomId: "test",
+        user: this.me,
+      };
+      const res = await this.leaveRoom(payload);
+      if (!res) {
+        this.$toast(
+          "error",
+          this.title,
+          this.loadingError
+            ? this.loadingError
+            : "Oops ! Something wrong happened"
+        );
+        return;
+      }
+      this.$router.push({ name: "join" });
     },
   },
 };
