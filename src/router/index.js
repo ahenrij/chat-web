@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+import roomGuard from "./middleware/room";
+
 import HomeView from "../views/HomeView.vue";
 import CreateRoomView from "../views/CreateRoomView.vue";
 import JoinRoomView from "../views/JoinRoomView.vue";
@@ -24,6 +27,7 @@ const routes = [
     path: "/chat",
     name: "room",
     component: RoomView,
+    beforeEnter: [roomGuard],
   },
   {
     path: "/about",
