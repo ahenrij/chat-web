@@ -16,14 +16,11 @@ const actions = {
       dispatch("handleError", res);
       return false;
     }
+    const room = res.data;
     commit("loading/success", null, { root: true });
     commit("mutate", { property: "isConnected", with: true });
-    commit(
-      "data/append",
-      { property: "rooms", value: res.data },
-      { root: true }
-    );
-    return res.data;
+    commit("data/append", { property: "rooms", value: room }, { root: true });
+    return room;
   },
 
   leaveRoom: async function ({ commit, dispatch }, payload) {
@@ -33,11 +30,12 @@ const actions = {
       dispatch("handleError", res);
       return false;
     }
+    const room = res.data;
     commit("loading/success", null, { root: true });
     commit("mutate", { property: "isConnected", with: false });
     commit(
       "data/removeById",
-      { property: "rooms", id: res.data.id },
+      { property: "rooms", id: room.id },
       { root: true }
     );
   },
