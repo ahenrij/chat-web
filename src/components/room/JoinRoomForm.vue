@@ -12,7 +12,7 @@
             type="text"
             name="roomId"
             id="roomId"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.roomId.value"
           />
           <small v-if="formData.roomId.error != ''" class="text-red-500">{{
@@ -26,7 +26,7 @@
             type="text"
             name="username"
             id="username"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.username.value"
           />
           <small v-if="formData.username.error != ''" class="text-red-500">{{
@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { getFormData, setFormData } from "@/utils/form";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -77,7 +76,7 @@ export default {
     join: function (event) {
       event.preventDefault();
       // update user name when joined
-      const data = getFormData(this.formData);
+      const data = this.$form.getFormData(this.formData);
       if (this.isValid(data)) {
         this.postData(data);
       }
@@ -95,7 +94,7 @@ export default {
       const room = await this.joinRoom(data);
 
       if (!room) {
-        this.toast(
+        this.$toast(
           "error",
           this.title,
           this.loadingError
@@ -106,7 +105,7 @@ export default {
       }
       // room is joined successfully
       this.setProperty({ obj: "me", property: "name", value: data.user.name });
-      setFormData(this.formData, null);
+      this.$form.setFormData(this.formData, null);
       this.$router.push({ name: "room" });
     },
 
@@ -121,17 +120,6 @@ export default {
         valid = false;
       }
       return valid;
-    },
-
-    resetErrors: function () {
-      // eslint-disable-next-line no-unused-vars
-      for (const [_, value] of Object.entries(this.formData)) {
-        value.error = "";
-      }
-    },
-
-    toast: function (type, title, message, duration = 2000) {
-      this.$notify({ group: type, title: title, text: message }, duration);
     },
   },
 };

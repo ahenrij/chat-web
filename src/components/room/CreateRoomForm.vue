@@ -12,7 +12,7 @@
             type="text"
             name="name"
             id="name"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.name.value"
           />
           <small v-if="formData.name.error != ''" class="text-red-500">{{
@@ -27,7 +27,7 @@
             name="description"
             rows="1"
             id="description"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.description.value"
           ></textarea>
           <small v-if="formData.description.error != ''" class="text-red-500">{{
@@ -52,7 +52,7 @@
             type="text"
             name="context"
             id="context"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.context.value"
           />
           <small v-if="formData.context.error != ''" class="text-red-500">{{
@@ -66,7 +66,7 @@
             type="text"
             name="refId"
             id="refId"
-            v-on:input="resetErrors()"
+            v-on:input="$form.resetErrors(formData)"
             v-model="formData.refId.value"
           />
           <small v-if="formData.refId.error != ''" class="text-red-500">{{
@@ -92,7 +92,6 @@
 
 <script>
 import VueTagsInput from "@sipec/vue3-tags-input";
-import { getFormData, setFormData } from "@/utils/form";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -123,7 +122,7 @@ export default {
      */
     createRoom: function (event) {
       event.preventDefault();
-      const data = getFormData(this.formData);
+      const data = this.$form.getFormData(this.formData);
       if (this.isValid(data)) {
         // Fixing some values
         data.isPrivate = false;
@@ -144,7 +143,7 @@ export default {
 
       if (!createdRoom) {
         const error = this.get("loadingError");
-        this.toast(
+        this.$toast(
           "error",
           this.title,
           error ? error : "Oops ! Une erreur est survenue"
@@ -154,7 +153,7 @@ export default {
       }
 
       // room is successfully created
-      setFormData(this.formData, null);
+      this.$form.setFormData(this.formData, null);
       this.$emit("created", createdRoom.id);
     },
 
@@ -165,17 +164,6 @@ export default {
         valid = false;
       }
       return valid;
-    },
-
-    resetErrors: function () {
-      // eslint-disable-next-line no-unused-vars
-      for (const [_, value] of Object.entries(this.formData)) {
-        value.error = "";
-      }
-    },
-
-    toast: function (type, title, message, duration = 2000) {
-      this.$notify({ group: type, title: title, text: message }, duration);
     },
   },
 
