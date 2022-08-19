@@ -37,7 +37,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 nav {
   padding: 30px;
   align-content: center;

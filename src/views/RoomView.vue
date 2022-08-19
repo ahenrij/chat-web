@@ -1,7 +1,7 @@
 <template>
   <div class="room-view md:mx-16 lg:mx-96 my-8">
     <div class="w-full">
-      <room-header :me="me" :room="room"></room-header>
+      <room-header :me="me" :room="currentRoom"></room-header>
       <message-history :me="me"></message-history>
       <room-footer></room-footer>
     </div>
@@ -20,21 +20,23 @@ export default {
     return {
       title: "Chat Room",
       me: { id: 0, name: "..." },
-      room: { id: "", name: "" },
+      currentRoom: { id: "", name: "" },
+      rooms: [],
     };
   },
 
+  created() {
+    this.$store.dispatch("roomSocket/init", null, { root: true });
+  },
+
   mounted() {
-    if (!this.isConnected) {
-      this.$router.push({ name: "join" });
-    }
     this.me = this.get("me");
-    this.room = this.get("rooms")[0];
+    this.rooms = this.get("rooms");
+    this.currentRoom = this.rooms[0];
   },
 
   computed: {
     ...mapGetters("data", ["loading", "get"]),
-    ...mapGetters("roomSocket", ["isConnected"]),
   },
 
   components: {
