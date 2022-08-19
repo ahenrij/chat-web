@@ -3,7 +3,6 @@ const HEIGHT_TO_REMOVE = 16;
 
 function height(scrollHeight) {
   var height = scrollHeight - HEIGHT_TO_REMOVE;
-  console.log(height);
   return height > MAX_SCROLL_HEIGHT ? MAX_SCROLL_HEIGHT : height;
 }
 
