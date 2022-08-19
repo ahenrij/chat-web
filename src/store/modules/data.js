@@ -32,7 +32,6 @@ const actions = {
     commit("loading/request", null, { root: true });
     try {
       const response = await DataService.makeRequest(payload.requestData);
-      //console.log(response);
       commit("loading/success", null, { root: true });
       if (payload.commit) {
         commit("mutate", {

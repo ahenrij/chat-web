@@ -148,7 +148,6 @@ export default {
           this.title,
           error ? error : "Oops ! Une erreur est survenue"
         );
-        console.log(error);
         return;
       }
 

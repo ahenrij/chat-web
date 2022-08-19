@@ -59,7 +59,8 @@ export default {
             2000
           );
         },
-        (error) => {
+        // eslint-disable-next-line no-unused-vars
+        (_error) => {
           this.$notify(
             {
               group: "error",
@@ -68,7 +69,6 @@ export default {
             },
             2000
           );
-          console.log(error);
         }
       );
     },

@@ -1,6 +1,10 @@
 <template>
   <div class="room-footer flex items-center">
-    <message-input v-model:value="message" @enter="send"></message-input>
+    <message-input
+      :room="room"
+      v-model:value="message"
+      @enter="send"
+    ></message-input>
     <div class="ml-4">
       <send-action @click="send" />
     </div>
@@ -12,6 +16,10 @@ import MessageInput from "@/components/message/MessageInput.vue";
 import SendAction from "@/components/utils/SendAction.vue";
 
 export default {
+  props: {
+    room: Object,
+  },
+
   data() {
     return {
       message: "",

@@ -13,32 +13,64 @@
     @keydown.enter.exact.prevent
     @keyup.enter.exact="enterPressed"
     @keydown.enter.shift.exact="newLine"
+    v-debounce:2s="fireStoppedTyping"
+    v-debounce:300ms="fireTyping"
+    debounce-events="keydown"
   ></textarea>
 </template>
 
 <script>
 import mixinAutoResize from "@/mixins/autoResize.js";
+import { mapGetters, mapActions } from "vuex";
+import { vue3Debounce } from "vue-debounce";
 
 export default {
   mixins: [mixinAutoResize],
+
+  directives: {
+    debounce: vue3Debounce({ lock: true }),
+  },
+
   props: {
     value: String,
+    room: Object,
   },
+
+  computed: {
+    ...mapGetters("data", ["get"]),
+  },
+
   data() {
     return {
       rows: 1,
     };
   },
+
   methods: {
-    newLine(event) {
+    ...mapActions("roomSocket", ["typing", "stoppedTyping"]),
+
+    newLine: function (event) {
       event.preventDefault();
       const updatedValue = `${event.target.value}\n`;
       this.$refs.input.value = updatedValue;
       this.$emit("update:value", updatedValue);
       this.mixin_autoResize_resize(event);
     },
-    enterPressed() {
+
+    enterPressed: function () {
       this.$emit("enter");
+    },
+
+    fireTyping: async function () {
+      const payload = {
+        roomId: this.room.id,
+        user: this.get("me"),
+      };
+      await this.typing(payload);
+    },
+
+    fireStoppedTyping: async function () {
+      await this.stoppedTyping(this.room.id);
     },
   },
 };
