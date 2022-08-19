@@ -37,7 +37,6 @@ export default {
         user: this.me,
       };
       const res = await this.leaveRoom(payload);
-      console.log(res);
       if (!res) {
         this.$toast(
           "error",
