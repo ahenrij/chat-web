@@ -7,16 +7,12 @@ function height(scrollHeight) {
   return height > MAX_SCROLL_HEIGHT ? MAX_SCROLL_HEIGHT : height;
 }
 
-function scrollBottom(el) {
-  el.scrollTo(0, el.scrollHeight);
-}
-
 export default {
   methods: {
     mixin_autoResize_resize(event) {
       event.target.style.height = "auto";
       event.target.style.height = `${height(event.target.scrollHeight)}px`;
-      scrollBottom(event.target);
+      event.target.scrollTo(0, event.target.scrollHeight);
     },
   },
   mounted() {
