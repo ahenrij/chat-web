@@ -36,7 +36,7 @@ export default {
 
 <style lang="postcss" scoped>
 .text-input {
-  @apply py-2 rounded-full !shadow-sm bg-white !border-white resize-none text-sm placeholder:text-slate-400;
+  @apply py-2 rounded-full bg-white !border-white resize-none text-sm placeholder:text-slate-400;
 }
 
 .form-input {
