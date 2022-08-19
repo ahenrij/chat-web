@@ -1,55 +1,34 @@
 <template>
-  <div class="message-input flex items-center">
-    <textarea
-      class="form-input text-input"
-      ref="messageInput"
-      rows="1"
-      placeholder="Type a message"
-      maxlength="20000"
-      v-model="message"
-      @keydown.enter.exact.prevent
-      @keyup.enter.exact="sendMessage"
-      @keydown.enter.shift.exact="newLine"
-    ></textarea>
-    <div class="ml-4">
-      <span class="cursor-pointer" @click="sendMessage">
-        <svg
-          width="24px"
-          class="fill-gray-500"
-          height="24px"
-          viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Send</title>
-          <path d="M16,464,496,256,16,48V208l320,48L16,304Z" />
-        </svg>
-      </span>
-    </div>
-  </div>
+  <textarea
+    ref="input"
+    class="form-input text-input"
+    rows="1"
+    placeholder="Type a message"
+    maxlength="20000"
+    :value="value"
+    @input="$emit('update:value', $event.target.value)"
+    @keydown.enter.exact.prevent
+    @keyup.enter.exact="enterPressed"
+    @keydown.enter.shift.exact="newLine"
+  ></textarea>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      message: "",
-    };
+  props: {
+    value: String,
   },
-
+  data() {
+    return {};
+  },
   methods: {
     newLine(event) {
       event.preventDefault();
-      this.message = `${this.message}\n`;
+      const updatedValue = `${event.target.value}\n`;
+      this.$refs.input.value = updatedValue;
+      this.$emit("update:value", updatedValue);
     },
-
-    sendMessage() {
-      // If the message body is empty, do not submit
-      if (this.message.length === 0) {
-        return;
-      }
-
-      // TODO: Make send message request
-
-      this.message = "";
+    enterPressed() {
+      this.$emit("enter");
     },
   },
 };
@@ -62,9 +41,5 @@ export default {
 
 .form-input {
   @apply !min-w-max w-full;
-}
-
-.message-input {
-  @apply pl-8 pr-5 py-2 bg-gray-200;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="w-full">
       <room-header :me="me" :room="room"></room-header>
       <message-history :me="me"></message-history>
-      <message-input></message-input>
+      <room-footer></room-footer>
     </div>
   </div>
 </template>
@@ -12,13 +12,12 @@
 // @ is an alias to /src
 import RoomHeader from "@/components/room/RoomHeader";
 import MessageHistory from "@/components/message/MessageHistory";
-import MessageInput from "@/components/message/MessageInput";
+import RoomFooter from "@/components/room/RoomFooter.vue";
 import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      showDropdown: false,
       title: "Chat Room",
       me: { id: 0, name: "..." },
       room: { id: "", name: "" },
@@ -41,7 +40,7 @@ export default {
   components: {
     RoomHeader,
     MessageHistory,
-    MessageInput,
+    RoomFooter,
   },
 };
 </script>
