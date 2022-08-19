@@ -11,9 +11,18 @@ const getters = {
 const actions = {
   joinRoom: async function ({ commit, dispatch }, payload) {
     commit("loading/request", null, { root: true });
+    // ensure socket is connected
+    if (!this.$io.socket.isConnected()) {
+      dispatch("handleError", {
+        code: 500,
+        message: "Connection to server lost!",
+      });
+      return false;
+    }
     const res = await this.$io.socket.postAsync("/room/join", payload);
+    // ensure no error occured
     if (!res.data) {
-      dispatch("handleError", res);
+      dispatch("handleError", { code: 404, message: res });
       return false;
     }
     const room = res.data;
@@ -25,9 +34,18 @@ const actions = {
 
   leaveRoom: async function ({ commit, dispatch }, payload) {
     commit("loading/request", null, { root: true });
+    // ensure socket is connected
+    if (!this.$io.socket.isConnected()) {
+      dispatch("handleError", {
+        code: 500,
+        message: "Connection to server lost!",
+      });
+      return false;
+    }
     const res = await this.$io.socket.postAsync("/room/leave", payload);
+    // ensure no error occured
     if (!res.data) {
-      dispatch("handleError", res);
+      dispatch("handleError", { code: 404, message: res });
       return false;
     }
     const room = res.data;
@@ -41,10 +59,10 @@ const actions = {
     return true;
   },
 
-  handleError({ commit }, res) {
+  handleError({ commit }, { code, message }) {
     commit(
       "loading/error",
-      { errorCode: 404, errorMessage: res },
+      { errorCode: code, errorMessage: message },
       { root: true }
     );
   },
