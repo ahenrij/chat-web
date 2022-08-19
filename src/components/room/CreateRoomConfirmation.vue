@@ -50,25 +50,10 @@ export default {
   methods: {
     copyIdToClipboard() {
       copyToClipboard(this.id).then(
-        () => {
-          this.$notify(
-            {
-              group: "generic",
-              text: "Copied!",
-            },
-            2000
-          );
-        },
+        () => this.$toast("generic", null, "Copied"),
         // eslint-disable-next-line no-unused-vars
         (_error) => {
-          this.$notify(
-            {
-              group: "error",
-              title: "Error",
-              text: "Sorry, unable to copy the ID",
-            },
-            2000
-          );
+          this.$toast("error", "Error", "Sorry, unable to copy the ID");
         }
       );
     },
