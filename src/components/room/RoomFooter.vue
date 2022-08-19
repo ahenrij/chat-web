@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     send() {
-      console.log("called");
       // If the message body is empty, do not submit
       if (this.message.length === 0) {
         return;
