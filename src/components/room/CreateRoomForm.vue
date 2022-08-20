@@ -146,7 +146,7 @@ export default {
         this.$toast(
           "error",
           this.title,
-          error ? error : "Oops ! Une erreur est survenue"
+          error ? error : "Oops ! Something wrong happened"
         );
         return;
       }
@@ -159,7 +159,7 @@ export default {
     isValid: function (data) {
       let valid = true;
       if (data.name === "") {
-        this.formData.name.error = "Champ obligatoire";
+        this.formData.name.error = "Mandatory field";
         valid = false;
       }
       return valid;
