@@ -142,12 +142,7 @@ export default {
       const createdRoom = await this.makeRequest(payload);
 
       if (!createdRoom) {
-        const error = this.get("loadingError");
-        this.$toast(
-          "error",
-          this.title,
-          error ? error : "Oops ! Something wrong happened"
-        );
+        this.$toastError(this.title, this.get("loadingError"));
         return;
       }
 

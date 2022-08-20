@@ -16,7 +16,7 @@ export default {
         duration
       );
     };
-
+    // toastError shortcut function
     app.config.globalProperties.$toastError = (
       title,
       message,
@@ -31,7 +31,7 @@ export default {
         duration
       );
     };
-
+    // add helpers functions
     app.config.globalProperties.$helpers = helpers;
     app.config.globalProperties.$form = form;
   },

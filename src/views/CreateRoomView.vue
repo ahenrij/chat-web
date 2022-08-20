@@ -12,7 +12,7 @@ import CreateRoomConfirmation from "@/components/room/CreateRoomConfirmation.vue
 export default {
   data() {
     return {
-      roomCreated: false,
+      roomCreated: true,
       createdRoomId: "",
     };
   },
