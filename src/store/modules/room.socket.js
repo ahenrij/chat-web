@@ -60,7 +60,7 @@ const actions = {
   },
 
   /**
-   * Typing request
+   * Send typing event to room
    * @param {*} payload request body
    * @returns
    */
@@ -73,7 +73,7 @@ const actions = {
   },
 
   /**
-   * Stopped typing request
+   * Send stopped typing event to room
    * @param {*} roomId the room id
    * @returns
    */
@@ -83,6 +83,19 @@ const actions = {
       return false;
     }
     await this.$io.socket.putAsync(`/room/${roomId}/stoppedTyping`);
+  },
+
+  /**
+   * Send message to room
+   * @param {*} param0
+   * @param {*} payload
+   * @returns
+   */
+  sendMessage: async function ({ dispatch }) {
+    // ensure socket is connected
+    if (!(await dispatch("isSocketConnected"))) {
+      return false;
+    }
   },
 
   handleError({ commit }, { code, message }) {
