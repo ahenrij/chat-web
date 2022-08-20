@@ -26,10 +26,7 @@ function scrollBottom() {
 }
 
 export default {
-  props: {
-    me: Object,
-    room: Object,
-  },
+  props: ["me", "room"],
 
   data() {
     return {};
@@ -49,6 +46,7 @@ export default {
 
   mounted() {
     //make request to get history
+    this.getHistory();
   },
 
   watch: {
@@ -61,12 +59,19 @@ export default {
     ...mapActions("data", ["makeRequest", "setProp"]),
 
     getHistory: async function () {
+      if (!this.room.id) {
+        return;
+      }
       const payload = {
         requestData: { method: "get", url: `/room/${this.room.id}/history` },
         commit: false,
       };
-      const history = await this.makeRequest(payload);
-      this.setProp({ obj: "histories", prop: this.room.id, val: history });
+      const res = await this.makeRequest(payload);
+      if (!res || !res.data) {
+        this.$toastError(this.title, this.get("loadingError"));
+        return;
+      }
+      this.setProp({ obj: "histories", prop: this.room.id, val: res.data });
     },
   },
 

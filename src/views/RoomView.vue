@@ -1,9 +1,9 @@
 <template>
   <div class="room-view md:mx-16 lg:mx-96 my-8">
     <div class="w-full">
-      <room-header :me="me" :room="currentRoom" />
-      <message-history :me="me" :room="currentRoom" />
-      <room-footer :room="currentRoom" />
+      <room-header :me="me" :room="currentRoom"></room-header>
+      <message-history :me="me" :room="currentRoom"></message-history>
+      <room-footer :room="currentRoom"></room-footer>
     </div>
   </div>
 </template>
@@ -19,14 +19,12 @@ export default {
   data() {
     return {
       title: "Chat Room",
-      me: { id: 0, name: "..." },
-      currentRoom: { id: "", name: "" },
+      currentRoom: { id: null, name: "" },
       rooms: [],
     };
   },
 
   mounted() {
-    this.me = this.get("me");
     this.rooms = this.get("rooms");
     this.currentRoom = this.rooms[0];
 
@@ -43,6 +41,10 @@ export default {
 
   computed: {
     ...mapGetters("data", ["loading", "get"]),
+
+    me() {
+      return this.$store.state.data.me;
+    },
   },
 
   components: {
