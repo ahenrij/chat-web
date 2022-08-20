@@ -87,15 +87,29 @@ const actions = {
 
   /**
    * Send message to room
-   * @param {*} param0
-   * @param {*} payload
-   * @returns
+   * @param {*} payload send request body
+   * @returns {Object} sent message
    */
-  sendMessage: async function ({ dispatch }) {
+  sendMessage: async function ({ commit, dispatch }, payload) {
     // ensure socket is connected
     if (!(await dispatch("isSocketConnected"))) {
       return false;
     }
+    const res = await this.$io.socket.postAsync("/message/send", payload);
+    // ensure no error occured
+    if (!res.data || !res.history) {
+      dispatch("handleError", { code: 500, message: res });
+      return false;
+    }
+    const roomId = payload.room;
+    const history = res.history;
+    commit("loading/success", null, { root: true });
+    commit(
+      "data/setProp",
+      { obj: "histories", prop: roomId, val: history },
+      { root: true }
+    );
+    return res.data;
   },
 
   handleError({ commit }, { code, message }) {
@@ -132,6 +146,16 @@ const actions = {
 
     this.$io.socket.on("stoppedTyping", (roomId) => {
       commit("removeTyping", roomId);
+    });
+
+    this.$io.socket.on("message", (payload) => {
+      const roomId = payload.data.room;
+      const history = payload.history;
+      commit(
+        "data/setProp",
+        { obj: "histories", prop: roomId, val: history },
+        { root: true }
+      );
     });
   },
 

@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import { copyToClipboard } from "@/utils/func";
-
 export default {
   props: {
     id: {
@@ -49,7 +47,7 @@ export default {
 
   methods: {
     copyIdToClipboard() {
-      copyToClipboard(this.id).then(
+      this.$helpers.copyToClipboard(this.id).then(
         () => this.$toast("generic", null, "Copied"),
         // eslint-disable-next-line no-unused-vars
         (_error) => {

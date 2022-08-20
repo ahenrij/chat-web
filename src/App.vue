@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { uuid } from "@/utils/func";
 import NotificationsView from "./components/utils/NotificationsView.vue";
 import { mapGetters, mapActions } from "vuex";
 
@@ -19,7 +18,7 @@ export default {
     const me = this.get("me");
     if (!("id" in me)) {
       // create user with a 10 characters identifier.
-      this.setProp({ obj: "me", prop: "id", val: uuid(10) });
+      this.setProp({ obj: "me", prop: "id", val: this.$helpers.uuid(10) });
     }
   },
 

@@ -3,7 +3,7 @@
     <div class="w-full">
       <room-header :me="me" :room="currentRoom"></room-header>
       <message-history :me="me" :room="currentRoom"></message-history>
-      <room-footer :room="currentRoom"></room-footer>
+      <room-footer :me="me" :room="currentRoom"></room-footer>
     </div>
   </div>
 </template>
