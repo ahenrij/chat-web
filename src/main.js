@@ -4,7 +4,7 @@ import Notifications from "notiwind";
 import ApiService from "./services/api.service";
 import router from "./router";
 import store from "./store";
-import utils from "./utils";
+import helpers from "./helpers";
 import "./assets/css/main.css";
 import "./assets/css/style.css";
 
@@ -15,5 +15,5 @@ createApp(App)
   .use(store)
   .use(router)
   .use(Notifications)
-  .use(utils)
+  .use(helpers)
   .mount("#app");

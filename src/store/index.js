@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import createSailsIOPlugin from "./plugins/sailsio.plugin";
 import createPersistedState from "vuex-persistedstate";
-import io from "@/utils/sails.io";
+import io from "@/helpers/sails.io";
 import loadingModule from "./modules/loading";
 import dataModule from "./modules/data";
 import roomSocketModule from "./modules/room.socket";

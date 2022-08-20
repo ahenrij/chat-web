@@ -1,5 +1,5 @@
-import helpers from "@/utils/func";
-import form from "@/utils/form";
+import helpers from "@/helpers/func";
+import form from "@/helpers/form";
 
 export default {
   // eslint-disable-next-line no-unused-vars

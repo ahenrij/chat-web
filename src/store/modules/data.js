@@ -1,5 +1,5 @@
 import { DataService, DataError } from "@/services/data.service";
-import { remove } from "@/utils/func";
+import { remove } from "@/helpers/func";
 
 const state = {
   histories: {}, // of roomId: messages[]
