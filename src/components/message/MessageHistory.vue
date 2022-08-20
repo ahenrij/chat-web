@@ -38,7 +38,7 @@ export default {
       {
         id: "1",
         sender: {
-          id: "1456ZBDJH",
+          id: "e22a003344",
           name: "Henri",
         },
         message: "Hi there!",
@@ -46,8 +46,8 @@ export default {
       {
         id: "2",
         sender: {
-          id: "e22a003344",
-          name: "ahenrij",
+          id: "e86b7dafb6",
+          name: "John",
         },
         message: "Yo!",
       },

@@ -1,8 +1,8 @@
 <template>
   <div class="grid grid-cols-1">
-    <div class="message-bubble" :class="classMe">
-      <span class="from" :class="classMe">{{ sender.name }}</span>
-      <span class="message-text" :class="classMe">{{ text }}</span>
+    <div class="message-bubble" :class="{ me: isMe }">
+      <span class="from" :class="{ me: isMe }">{{ sender.name }}</span>
+      <span class="message-text" :class="{ me: isMe }">{{ text }}</span>
     </div>
   </div>
 </template>
@@ -12,9 +12,9 @@ export default {
   props: ["me", "sender", "text"],
 
   computed: {
-    classMe() {
+    isMe() {
       // Render the message bubble on the right side if it is from this client
-      return this.me.id === this.sender.id ? "me" : "";
+      return this.me.id == this.sender.id;
     },
   },
 };
