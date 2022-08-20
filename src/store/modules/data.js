@@ -15,10 +15,6 @@ const getters = {
   loading: (state) => {
     return state.loading;
   },
-
-  getChatHistory: (_state, _getters, rootState) => (roomId) => {
-    return rootState.histories[roomId];
-  },
 };
 
 const actions = {
@@ -71,16 +67,8 @@ const actions = {
     });
   },
 
-  setProperty({ commit }, { obj, property, value }) {
-    commit("setProperty", { obj, property, value });
-  },
-
-  setChatHistory({ commit }, { roomId, chatHistory }) {
-    commit("setProperty", {
-      obj: "histories",
-      property: roomId,
-      value: chatHistory,
-    });
+  setProp({ commit }, { obj, prop, val }) {
+    commit("setProp", { obj, prop, val });
   },
 };
 
@@ -89,8 +77,8 @@ const mutations = {
     state[payload.property] = payload.with;
   },
 
-  setProperty(state, payload) {
-    state[payload.obj][payload.property] = payload.value;
+  setProp(state, payload) {
+    state[payload.obj][payload.prop] = payload.val;
   },
 
   append(state, payload) {

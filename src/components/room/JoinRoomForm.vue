@@ -70,7 +70,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("data", ["setProperty"]),
+    ...mapActions("data", ["setProp"]),
     ...mapActions("roomSocket", ["joinRoom"]),
 
     join: function (event) {
@@ -104,7 +104,7 @@ export default {
         return;
       }
       // room is joined successfully
-      this.setProperty({ obj: "me", property: "name", value: data.user.name });
+      this.setProp({ obj: "me", prop: "name", val: data.user.name });
       this.$form.setFormData(this.formData, null);
       this.$router.push({ name: "room" });
     },

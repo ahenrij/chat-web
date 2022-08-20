@@ -19,7 +19,7 @@ export default {
     const me = this.get("me");
     if (!("id" in me)) {
       // create user with a 10 characters identifier.
-      this.setProperty({ obj: "me", property: "id", value: uuid(10) });
+      this.setProp({ obj: "me", prop: "id", val: uuid(10) });
     }
   },
 
@@ -28,7 +28,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("data", ["setProperty"]),
+    ...mapActions("data", ["setProp"]),
   },
 
   components: {

@@ -114,7 +114,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("data", ["makeRequest", "setProperty", "addRoom"]),
+    ...mapActions("data", ["makeRequest"]),
 
     /**
      * Create a new chat room using form data

@@ -1,9 +1,9 @@
 <template>
   <div class="room-view md:mx-16 lg:mx-96 my-8">
     <div class="w-full">
-      <room-header :me="me" :room="currentRoom"></room-header>
-      <message-history :me="me"></message-history>
-      <room-footer :room="currentRoom"></room-footer>
+      <room-header :me="me" :room="currentRoom" />
+      <message-history :me="me" :room="currentRoom" />
+      <room-footer :room="currentRoom" />
     </div>
   </div>
 </template>

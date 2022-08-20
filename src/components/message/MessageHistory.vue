@@ -19,39 +19,36 @@
 </template>
 <script>
 import MessageBubble from "@/components/message/MessageBubble.vue";
+import { mapGetters, mapActions } from "vuex";
 
 function scrollBottom() {
   this.$el.scrollTo(0, this.$el.scrollHeight);
 }
 
 export default {
-  props: ["me"],
+  props: {
+    me: Object,
+    room: Object,
+  },
 
   data() {
-    return {
-      history: [],
-    };
+    return {};
+  },
+
+  computed: {
+    ...mapGetters("loading", ["loadingError"]),
+
+    history: function () {
+      return this.$store.state.data.histories[this.room.id];
+    },
+
+    historyIsEmpty() {
+      return this.history ? this.history.length === 0 : true;
+    },
   },
 
   mounted() {
-    this.history = [
-      {
-        id: "1",
-        sender: {
-          id: "e22a003344",
-          name: "Henri",
-        },
-        message: "Hi there!",
-      },
-      {
-        id: "2",
-        sender: {
-          id: "e86b7dafb6",
-          name: "John",
-        },
-        message: "Yo!",
-      },
-    ]; //make request to get history
+    //make request to get history
   },
 
   watch: {
@@ -60,9 +57,16 @@ export default {
     },
   },
 
-  computed: {
-    historyIsEmpty() {
-      return this.history.length === 0;
+  methods: {
+    ...mapActions("data", ["makeRequest", "setProp"]),
+
+    getHistory: async function () {
+      const payload = {
+        requestData: { method: "get", url: `/room/${this.room.id}/history` },
+        commit: false,
+      };
+      const history = await this.makeRequest(payload);
+      this.setProp({ obj: "histories", prop: this.room.id, val: history });
     },
   },
 
