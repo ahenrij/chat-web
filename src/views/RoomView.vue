@@ -25,14 +25,20 @@ export default {
     };
   },
 
-  created() {
-    this.$store.dispatch("roomSocket/init", null, { root: true });
-  },
-
   mounted() {
     this.me = this.get("me");
     this.rooms = this.get("rooms");
     this.currentRoom = this.rooms[0];
+
+    const payload = {
+      roomId: this.currentRoom.id,
+      user: this.me,
+    };
+    this.$store.dispatch("roomSocket/init", payload, { root: true });
+  },
+
+  unmounted() {
+    this.$store.dispatch("roomSocket/removeListeners", null, { root: true });
   },
 
   computed: {

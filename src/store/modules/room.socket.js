@@ -107,15 +107,23 @@ const actions = {
   /**
    * Socket io message listeners
    * @param {*} param0
+   * @param {Object} payload join request body
    */
-  init({ commit }) {
-    this.$io.socket.on("typing", (payload) => {
-      commit("setTyping", payload);
+  init: async function ({ commit }, payload) {
+    // Ensure that socket subscribed to room
+    await this.$io.socket.postAsync("/room/join", payload);
+
+    this.$io.socket.on("typing", (data) => {
+      commit("setTyping", data);
     });
 
     this.$io.socket.on("stoppedTyping", (roomId) => {
       commit("removeTyping", roomId);
     });
+  },
+
+  removeListeners() {
+    this.$io.socket.removeAllListeners();
   },
 };
 
