@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="chat-history !bg-stone-100 p-4 px-20 w-full h-full"
-    :class="{ empty: historyIsEmpty }"
-  >
+  <div class="chat-history" :class="{ empty: historyIsEmpty }">
     <div v-if="!historyIsEmpty" class="w-full">
       <message-bubble
         v-for="msg in history"
@@ -86,7 +83,7 @@ export default {
   min-height: 400px !important;
 }
 .chat-history {
-  @apply flex items-end;
+  @apply flex items-end bg-stone-100 p-4 sm:px-16 w-full h-full;
 }
 .chat-history.empty {
   @apply flex !items-center;
