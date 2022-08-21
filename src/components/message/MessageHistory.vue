@@ -89,9 +89,6 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-history {
-  min-height: 400px !important;
-}
-.chat-history {
   @apply flex items-end bg-stone-100 p-4 sm:px-16 w-full h-full;
 }
 .chat-history.empty {

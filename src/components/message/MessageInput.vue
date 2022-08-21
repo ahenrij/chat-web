@@ -79,6 +79,7 @@ export default {
 <style lang="postcss" scoped>
 .text-input {
   @apply py-2 rounded-md bg-white !border-white resize-none text-sm placeholder:text-slate-400 box-content;
+  @apply selection:bg-blue-500 selection:text-white;
 }
 
 .form-input {
