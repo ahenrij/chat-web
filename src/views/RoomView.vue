@@ -1,5 +1,5 @@
 <template>
-  <div class="room-view md:mx-16 lg:mx-96 my-8">
+  <div class="room-view md:mx-16 lg:mx-96">
     <div class="w-full">
       <room-header :me="me" :room="currentRoom"></room-header>
       <message-history :me="me" :room="currentRoom"></message-history>

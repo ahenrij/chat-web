@@ -1,5 +1,5 @@
 <template>
-  <nav class="text-center">
+  <nav class="hidden sm:block sm:text-center sm:mb-8">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
