@@ -52,7 +52,7 @@ export default {
         this.$toastError(this.title, this.get("loadingError"));
         return;
       }
-      // clear input
+      // Clear input
       this.message = "";
     },
   },
