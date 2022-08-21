@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chat-history !bg-stone-100 p-4 px-20 !w-full"
+    class="chat-history !bg-stone-100 p-4 px-20 w-full h-full"
     :class="{ empty: historyIsEmpty }"
   >
     <div v-if="!historyIsEmpty" class="w-full">

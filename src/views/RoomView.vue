@@ -1,6 +1,6 @@
 <template>
   <div class="room-view md:mx-16 lg:mx-96">
-    <div class="w-full">
+    <div class="w-full h-screen sm:h-full flex flex-col">
       <room-header :me="me" :room="currentRoom"></room-header>
       <message-history :me="me" :room="currentRoom"></message-history>
       <room-footer :me="me" :room="currentRoom"></room-footer>
