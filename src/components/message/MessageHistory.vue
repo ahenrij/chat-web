@@ -8,6 +8,13 @@
         :sender="msg.sender"
         :text="msg.message"
       />
+      <div
+        v-if="loadingError"
+        class="bg-red-500 text-white mt-2 sm:mx-48 py-1 text-xs text-center rounded-full"
+      >
+        Loading failed!
+        <!--TODO: show error content on error page-->
+      </div>
     </div>
     <div v-else class="w-full">
       <p class="text-center">No messages</p>
@@ -26,7 +33,9 @@ export default {
   props: ["me", "room"],
 
   data() {
-    return {};
+    return {
+      title: "Room",
+    };
   },
 
   computed: {
@@ -65,7 +74,7 @@ export default {
       };
       const res = await this.makeRequest(payload);
       if (!res || !res.data) {
-        this.$toastError(this.title, this.get("loadingError"));
+        // this.$toastError(this.title, this.loadingError);
         return;
       }
       this.setProp({ obj: "histories", prop: this.room.id, val: res.data });
