@@ -10,7 +10,7 @@
       />
       <div
         v-if="loadingError"
-        class="bg-red-500 text-white mt-2 sm:mx-48 py-1 text-xs text-center rounded-full"
+        class="bg-red-500 text-white mt-2 py-1 text-xs text-center rounded-full"
       >
         Loading failed!
         <!--TODO: show error content on error page-->
