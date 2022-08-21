@@ -25,10 +25,6 @@
 import MessageBubble from "@/components/message/MessageBubble.vue";
 import { mapGetters, mapActions } from "vuex";
 
-function scrollBottom() {
-  this.$el.scrollTo(0, this.$el.scrollHeight);
-}
-
 export default {
   props: ["me", "room"],
 
@@ -55,10 +51,8 @@ export default {
     this.getHistory();
   },
 
-  watch: {
-    history: function () {
-      this.$nextTick(scrollBottom);
-    },
+  updated() {
+    this.scrollToBottom();
   },
 
   methods: {
@@ -79,6 +73,10 @@ export default {
       }
       this.setProp({ obj: "histories", prop: this.room.id, val: res.data });
     },
+
+    scrollToBottom() {
+      this.$el.scrollTop = this.$el.scrollHeight + 10;
+    },
   },
 
   components: {
@@ -89,7 +87,8 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-history {
-  @apply flex items-end bg-stone-100 p-4 sm:px-16 w-full h-full;
+  @apply bg-stone-100 p-4 sm:px-16 w-full h-full;
+  @apply overflow-y-auto;
 }
 .chat-history.empty {
   @apply flex !items-center;
