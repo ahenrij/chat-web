@@ -5,7 +5,7 @@
       v-model:value="message"
       @enter="send"
     ></message-input>
-    <div class="ml-4">
+    <div class="ml-2 sm:ml-4">
       <send-action @click="send" />
     </div>
   </div>
@@ -65,6 +65,6 @@ export default {
 
 <style lang="postcss" scoped>
 .room-footer {
-  @apply pl-8 pr-5 py-2 bg-gray-200;
+  @apply pl-3 pr-2 sm:pl-8 sm:pr-5 py-2 bg-gray-200;
 }
 </style>
