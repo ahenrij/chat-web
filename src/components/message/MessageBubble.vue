@@ -28,7 +28,7 @@ export default {
   @apply block bg-white w-fit shadow-sm pr-6 pl-3 py-1 rounded-lg rounded-tl-none;
 }
 .message-bubble {
-  @apply my-2;
+  @apply my-2 ml-0 mr-16 sm:mr-32;
 }
 
 .from.me {
@@ -38,6 +38,6 @@ export default {
   @apply bg-blue-500 text-white rounded-lg rounded-tr-none right-0;
 }
 .message-bubble.me {
-  @apply place-self-end;
+  @apply place-self-end mr-0 ml-16 sm:ml-32;
 }
 </style>

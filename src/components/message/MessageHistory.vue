@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="chat-history !bg-stone-100 p-4 px-20 !w-full"
-    :class="{ empty: historyIsEmpty }"
-  >
-    <div v-if="!historyIsEmpty" class="w-full">
+  <div class="chat-history" :class="{ empty: historyIsEmpty }">
+    <div v-if="!historyIsEmpty" class="w-full !min-h-full grid content-end">
       <message-bubble
         v-for="msg in history"
         :key="msg.id"
@@ -11,6 +8,13 @@
         :sender="msg.sender"
         :text="msg.message"
       />
+      <div
+        v-if="loadingError"
+        class="bg-red-500 text-white mt-2 py-1 text-xs text-center rounded-full"
+      >
+        Loading failed!
+        <!--TODO: show error content on error page-->
+      </div>
     </div>
     <div v-else class="w-full">
       <p class="text-center">No messages</p>
@@ -21,15 +25,13 @@
 import MessageBubble from "@/components/message/MessageBubble.vue";
 import { mapGetters, mapActions } from "vuex";
 
-function scrollBottom() {
-  this.$el.scrollTo(0, this.$el.scrollHeight);
-}
-
 export default {
   props: ["me", "room"],
 
   data() {
-    return {};
+    return {
+      title: "Room",
+    };
   },
 
   computed: {
@@ -49,10 +51,8 @@ export default {
     this.getHistory();
   },
 
-  watch: {
-    history: function () {
-      this.$nextTick(scrollBottom);
-    },
+  updated() {
+    this.scrollToBottom();
   },
 
   methods: {
@@ -68,10 +68,14 @@ export default {
       };
       const res = await this.makeRequest(payload);
       if (!res || !res.data) {
-        this.$toastError(this.title, this.get("loadingError"));
+        // this.$toastError(this.title, this.loadingError);
         return;
       }
       this.setProp({ obj: "histories", prop: this.room.id, val: res.data });
+    },
+
+    scrollToBottom() {
+      this.$el.scrollTop = this.$el.scrollHeight + 10;
     },
   },
 
@@ -83,10 +87,8 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-history {
-  min-height: 400px !important;
-}
-.chat-history {
-  @apply flex items-end;
+  @apply bg-stone-100 p-4 sm:px-16 w-full h-full;
+  @apply overflow-y-auto;
 }
 .chat-history.empty {
   @apply flex !items-center;

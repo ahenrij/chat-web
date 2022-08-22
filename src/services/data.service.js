@@ -21,7 +21,10 @@ const DataService = {
       const response = await ApiService.customRequest(requestData);
       return response;
     } catch (error) {
-      throw new DataError(error.response.status, error.response.data.message);
+      throw new DataError(
+        error.response.status,
+        error.response.data.message || error.response.data
+      );
     }
   },
 };

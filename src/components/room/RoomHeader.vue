@@ -2,7 +2,7 @@
   <div class="heading grid grid-cols-2 bg-blue-500 px-4 py-2">
     <div class="flex items-center">
       <div>
-        <h1 class="text-md text-white font-bold">Room #{{ room.name }}</h1>
+        <h1 class="text-md text-white font-bold">{{ room.name }}</h1>
         <h2 v-if="typingUser" class="text-xs text-slate-200">
           {{ typingUser.name }} is typing...
         </h2>
