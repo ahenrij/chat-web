@@ -1,6 +1,6 @@
 <template>
   <div class="chat-history" :class="{ empty: historyIsEmpty }">
-    <div v-if="!historyIsEmpty" class="w-full">
+    <div v-if="!historyIsEmpty" class="w-full !min-h-full grid content-end">
       <message-bubble
         v-for="msg in history"
         :key="msg.id"
