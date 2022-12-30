@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    app:
+      image: darkpearl/chat-web:latest
+      container_name: chat-web
+      restart: always
+      ports:
+        - 8080:80
+      environment:
+        - VUE_APP_ROOT_API=http://localhost:1337/
+
+    api:
+      image: darkpearl/chat-service:latest 
+      container_name: chat-api
+      restart: always
+      ports:
+        - 1337:1337
+      links:
+        - db
+      depends_on:
+        - db
+      environment:
+        - STRICTLY_CHECK_SOCKET=true
+        - DATABASE_TYPE=mongo
+        - DATABASE_URL=mongodb://root:password@db:27017/chat_service_db
+
+    db:
+      image: mongo:6.0.3
+      container_name: chat_service_mongo
+      ports:
+        - 27017:27017
+      environment: 
+        - MONGO_INITDB_DATABASE=chat_service_db
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+      volumes:
+        - chat-service-data:/data/db
+        - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+volumes:
+  chat-service-data:

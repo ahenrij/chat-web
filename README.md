@@ -1,29 +1,35 @@
 # chat-web
 
-## Project setup
+Web application for [chat microservice](https://hub.docker.com/repository/docker/darkpearl/chat-service) usage.
+
+## Setup
+
+Install dependencies
 
 ```bash
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Compiles and hot-reloads for development
 
 ```bash
 npm run serve
 ```
 
-### Compiles and minifies for production
+Env. variables
 
+- `VUE_APP_ROOT_API` : chat microservice API url
+
+
+## Usage
+
+### Run docker image
 ```bash
-npm run build
+docker run -it -p 8080:80 -e "VUE_APP_ROOT_API={chat-service-url}" --name chat-web darkpearl/chat-web
 ```
 
-### Lints and fixes files
+See [full  docker-compose example](deploy) in deploy directory.
 
-```bash
-npm run lint
-```
+API will be running at [http://localhost:1337](http://localhost:1337)
 
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Web App will be running at [http://localhost:8080](http://localhost:8080)
